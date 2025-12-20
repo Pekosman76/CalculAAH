@@ -1,0 +1,5 @@
+{
+  "name": "Simulateur AAH 2025",
+  "description": "Un simulateur complet pour estimer votre Allocation aux Adultes Handicapés (AAH) en 2025, incluant les calculs de ressources, les plafonds familiaux et les conditions d'éligibilité.",
+  "requestFramePermissions": []
+}
