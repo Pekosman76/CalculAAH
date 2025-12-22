@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
     <link rel="manifest" href="/site.webmanifest?v=2">
-    <title>Simulateur AAH 2025 - Calcul Complet</title>
+    <title id="page-title">Simulateur AAH - Calcul Complet</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +55,7 @@
                         <path d="M2 17L12 22L22 17" stroke="#00205B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <h1 class="text-sm md:text-lg font-bold">Simulateur AAH 2025</h1>
+                <h1 id="header-title" class="text-sm md:text-lg font-bold">Simulateur AAH</h1>
             </div>
             <nav class="flex gap-2">
                 <button onclick="changeView('simulator')" id="nav-sim" class="px-3 py-1 rounded-full text-xs md:text-sm font-medium bg-[#0063B1]">Simulateur</button>
@@ -72,7 +72,7 @@
     <!-- FOOTER -->
     <footer class="bg-slate-100 border-t border-slate-200 py-8 mt-10">
         <div class="max-w-5xl mx-auto px-4 text-center">
-            <p class="text-[10px] text-slate-500 mb-4 italic">
+            <p id="footer-note" class="text-[10px] text-slate-500 mb-4 italic">
                 Outil indicatif basé sur les barèmes légaux. Seule la CAF/MSA peut valider vos droits.
             </p>
             <div class="flex justify-center gap-6 text-[10px] text-[#0063B1] font-bold">
@@ -84,6 +84,15 @@
     </footer>
 
     <script>
+        // DYNAMIC YEARS
+        const CURRENT_YEAR = new Date().getFullYear();
+        const N2_YEAR = CURRENT_YEAR - 2;
+
+        // Update static elements
+        document.getElementById('page-title').innerText = `Simulateur AAH ${CURRENT_YEAR} - Calcul Complet`;
+        document.getElementById('header-title').innerText = `Simulateur AAH ${CURRENT_YEAR}`;
+        document.getElementById('footer-note').innerHTML = `Outil indicatif basé sur les barèmes légaux ${CURRENT_YEAR}. Seule la CAF/MSA peut valider vos droits.`;
+
         // DATA & STATE
         const MONTANT_MAX_AAH = 1033.32;
         const SEUIL_ABATTEMENT = 540.54;
@@ -183,7 +192,7 @@
             return `
             <div class="max-w-4xl mx-auto py-6 md:py-10 px-4 animate-fade-in info-page-container">
                 <button onclick="changeView('simulator')" class="mb-6 flex items-center gap-2 text-[#0063B1] font-bold hover:underline">← Retour</button>
-                <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-10 info-banner-title">GUIDE DE L'AAH 2025</h1>
+                <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-10 info-banner-title">GUIDE DE L'AAH ${CURRENT_YEAR}</h1>
                 
                 <div class="space-y-12 text-slate-700 leading-relaxed">
                     <section>
@@ -202,8 +211,8 @@
                     </section>
 
                     <section>
-                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">3. Calcul et montant 2025</h2>
-                        <p>Le montant maximal est de <strong>1 033,32 € par mois</strong>. L'AAH est dite "différentielle" : si vous avez d'autres revenus, l'allocation versée correspond à la différence entre ce plafond et vos ressources après abattements.</p>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">3. Calcul et montant ${CURRENT_YEAR}</h2>
+                        <p>Le montant maximal est de <strong>1 033,32 € par mois</strong> (valeur de référence). L'AAH est dite "différentielle" : si vous avez d'autres revenus, l'allocation versée correspond à la différence entre ce plafond et vos ressources après abattements.</p>
                         <div class="mt-4 bg-slate-100 p-4 rounded-xl text-sm italic">
                             <strong>Exemple :</strong> Si vous gagnez 600€, la CAF applique un abattement (ex: 80% sur la 1ère tranche). Seule une fraction de votre salaire est déduite des 1033,32€.
                         </div>
@@ -243,8 +252,11 @@
             return `
             <div class="py-6 md:py-10 animate-fade-in">
                 <div class="text-center mb-6 md:mb-10 px-4 intro-section">
-                    <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-2 intro-title uppercase">Estimez votre AAH 2025</h1>
-                    <p class="text-slate-600 max-w-xl mx-auto intro-text">Simulation précise en 5 étapes basée sur les derniers barèmes.</p>
+                    <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-2 intro-title uppercase">Estimez votre AAH ${CURRENT_YEAR}</h1>
+                    <div class="text-slate-600 max-w-xl mx-auto intro-text">
+                        <p class="mb-1">Simulation précise en 5 étapes basée sur les derniers barèmes.</p>
+                        <p class="text-xs opacity-75">Simulateur d’Allocation aux Adultes Handicapés ${CURRENT_YEAR}</p>
+                    </div>
                 </div>
                 <div class="max-w-2xl mx-auto px-4">
                     <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -331,7 +343,8 @@
                 `;
                 case 3: return `
                     <h2 class="text-xl font-bold text-[#00205B] mb-2">Étape 3 : Revenus professionnels récents</h2>
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-8">Vos ressources personnelles uniquement</p>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Vos ressources personnelles uniquement</p>
+                    <p class="text-xs text-blue-700 font-medium mb-6 italic">Indiquez vos revenus en mensuel (€/mois). Si vous ne connaissez qu’un montant annuel, divisez-le par 12.</p>
                     <div class="mb-8">
                         <label class="block text-sm font-bold text-slate-700 mb-3">Avez-vous perçu des revenus depuis janvier ?</label>
                         <div class="flex gap-3">
@@ -369,7 +382,8 @@
                         ` : ''}
                     </div>
                     <div class="bg-slate-100 p-6 rounded-3xl">
-                        <h3 class="text-xs font-black text-slate-500 uppercase mb-5 tracking-widest">Ressources N-2 (Revenus 2022)</h3>
+                        <h3 class="text-xs font-black text-slate-500 uppercase mb-2 tracking-widest">Ressources N-2 (Revenus ${N2_YEAR})</h3>
+                        <p class="text-[10px] text-blue-700 font-bold mb-5 italic">Indiquez les montants annuels (total sur l’année ${N2_YEAR}). Le simulateur les convertira automatiquement en équivalent mensuel.</p>
                         <div class="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                             ${renderN2('Revenus d\'activité connus', 'activite')}
                             ${renderN2('Autres (chômage, préretraite)', 'autres')}
@@ -399,9 +413,9 @@
         }
 
         // HELPERS
-        function renderIncome(l, k) { return `<div><label class="block text-[10px] font-black text-slate-500 uppercase mb-1">${l}</label><input type="number" oninput="state.data.professionalIncomes.${k}=parseFloat(this.value)||0" value="${state.data.professionalIncomes[k]||''}" placeholder="0 €" class="w-full px-4 py-2 border-2 rounded-xl text-sm outline-none focus:border-[#0063B1]"></div>`; }
+        function renderIncome(l, k) { return `<div><label class="block text-[10px] font-black text-slate-500 uppercase mb-1">${l}</label><input type="number" oninput="state.data.professionalIncomes.${k}=parseFloat(this.value)||0" value="${state.data.professionalIncomes[k]||''}" placeholder="0 € / mois" class="w-full px-4 py-2 border-2 rounded-xl text-sm outline-none focus:border-[#0063B1]"></div>`; }
         function renderAlloc(l, k) { return `<div><label class="block text-[10px] font-black text-slate-500 uppercase mb-1">${l}</label><input type="number" oninput="state.data.allocations.${k}=parseFloat(this.value)||0" value="${state.data.allocations[k]||''}" placeholder="0 €" class="w-full px-4 py-2 border-2 rounded-xl text-sm outline-none focus:border-[#0063B1]"></div>`; }
-        function renderN2(l, k) { return `<div><label class="block text-[10px] font-black text-slate-400 uppercase mb-1">${l}</label><input type="number" oninput="state.data.resourcesN2.${k}=parseFloat(this.value)||0" value="${state.data.resourcesN2[k]||''}" placeholder="0 €" class="w-full px-3 py-1.5 border-2 border-slate-200 rounded-lg text-xs outline-none focus:border-[#0063B1]"></div>`; }
+        function renderN2(l, k) { return `<div><label class="block text-[10px] font-black text-slate-400 uppercase mb-1">${l}</label><input type="number" oninput="state.data.resourcesN2.${k}=parseFloat(this.value)||0" value="${state.data.resourcesN2[k]||''}" placeholder="0 € (année ${N2_YEAR})" class="w-full px-3 py-1.5 border-2 border-slate-200 rounded-lg text-xs outline-none focus:border-[#0063B1]"></div>`; }
 
         function renderResult() {
             const res = state.result;
