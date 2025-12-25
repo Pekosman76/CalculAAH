@@ -3,122 +3,505 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Favicons et Icônes Google -->
+      <!-- Favicons et Icônes Google -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
     <link rel="manifest" href="/site.webmanifest?v=3">
-
     <title id="page-title">Simulateur AAH - Calcul Complet</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
         body { font-family: 'Inter', sans-serif; }
         .animate-fade-in { animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
+        
+        @media (max-width: 600px) {
+            header { height: 3.5rem !important; }
+            .intro-section { padding-top: 0.75rem !important; margin-bottom: 1rem !important; }
+            .intro-title { font-size: 1.2rem !important; line-height: 1.2 !important; margin-bottom: 0.2rem !important; }
+            .intro-text { font-size: 0.8rem !important; line-height: 1.3 !important; }
+            .info-banner-title { font-size: 1.3rem !important; margin-bottom: 1rem !important; }
+            .info-page-container { padding-top: 1rem !important; }
+            .step-card { padding: 1.25rem !important; }
+        }
 
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #0063B1; cursor: pointer; border-radius: 50%; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+</head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
 
-<!-- HEADER -->
-<header class="bg-[#00205B] text-white shadow-lg sticky top-0 z-50">
-    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-        <h1 id="header-title" class="text-sm md:text-lg font-bold">Simulateur AAH</h1>
-        <nav class="flex gap-2">
-            <button onclick="changeView('simulator')" class="px-3 py-1 rounded-full text-xs md:text-sm font-medium bg-[#0063B1]">Simulateur</button>
-            <button onclick="changeView('info')" class="px-3 py-1 rounded-full text-xs md:text-sm font-medium hover:bg-blue-800">En savoir plus</button>
-        </nav>
-    </div>
-</header>
+    <!-- HEADER -->
+    <header class="bg-[#00205B] text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-white p-1 rounded hidden sm:block">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#00205B"/>
+                        <path d="M2 17L12 22L22 17" stroke="#00205B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1 id="header-title" class="text-sm md:text-lg font-bold">Simulateur AAH</h1>
+            </div>
+            <nav class="flex gap-2">
+                <button onclick="changeView('simulator')" id="nav-sim" class="px-3 py-1 rounded-full text-xs md:text-sm font-medium bg-[#0063B1]">Simulateur</button>
+                <button onclick="changeView('info')" id="nav-info" class="px-3 py-1 rounded-full text-xs md:text-sm font-medium hover:bg-blue-800">En savoir plus</button>
+            </nav>
+        </div>
+    </header>
 
-<!-- MAIN -->
-<main id="app-content" class="flex-grow"></main>
-
-<!-- ======================= -->
-<!-- LEGAL SECTIONS (ADDED) -->
-<!-- ======================= -->
-
-<section id="mentions-legales" class="max-w-4xl mx-auto px-4 py-12 text-xs text-slate-700 leading-relaxed">
-    <h2 class="text-lg font-black text-[#00205B] mb-4">Mentions légales</h2>
-
-    <p>
-        Le site <strong>calcul-aah.fr</strong> propose un simulateur de l’Allocation aux Adultes Handicapés (AAH)
-        à titre strictement informatif et indicatif.
-    </p>
-
-    <p class="mt-3">
-        <strong>Éditeur :</strong><br>
-        Simulateur AAH – calcul-aah.fr
-    </p>
-
-    <p class="mt-3">
-        <strong>Contact :</strong><br>
-        <a href="mailto:laloumaxime951@gmail.com" class="text-[#0063B1] font-bold hover:underline">
-            laloumaxime951@gmail.com
-        </a>
-    </p>
-
-    <p class="mt-3">
-        <strong>Hébergement :</strong><br>
-        OVHcloud SAS – 2 rue Kellermann, 59100 Roubaix – France
-    </p>
-
-    <p class="italic text-slate-500 mt-4">
-        Les résultats fournis par le simulateur n’ont aucune valeur légale.
-        Seules la CAF ou la MSA peuvent valider définitivement vos droits.
-    </p>
-</section>
-
-<section id="confidentialite" class="max-w-4xl mx-auto px-4 py-12 text-xs text-slate-700 leading-relaxed border-t border-slate-200">
-    <h2 class="text-lg font-black text-[#00205B] mb-4">Politique de confidentialité</h2>
-
-    <p>
-        Ce site ne collecte, ne stocke et ne conserve aucune donnée personnelle.
-        Les informations saisies dans le simulateur sont utilisées uniquement pour effectuer
-        le calcul en temps réel dans votre navigateur.
-    </p>
-
-    <p class="mt-3">
-        Aucune donnée n’est transmise à des tiers.
-    </p>
-
-    <p class="mt-3">
-        Des cookies techniques ou publicitaires (Google AdSense) peuvent être utilisés
-        afin d’assurer le bon fonctionnement du site et l’affichage de publicités.
-    </p>
-
-    <p class="mt-3">
-        Conformément au Règlement Général sur la Protection des Données (RGPD),
-        vous pouvez exercer vos droits en nous contactant à l’adresse :
-        <a href="mailto:laloumaxime951@gmail.com" class="text-[#0063B1] font-bold hover:underline">
-            laloumaxime951@gmail.com
-        </a>
-    </p>
-</section>
+    <!-- MAIN CONTENT -->
+    <main id="app-content" class="flex-grow">
+        <!-- Injected by JS -->
+    </main>
 
 <!-- FOOTER -->
 <footer class="bg-slate-100 border-t border-slate-200 py-8 mt-10">
     <div class="max-w-5xl mx-auto px-4 text-center">
-        <p class="text-[10px] text-slate-500 mb-4 italic">
+
+        <p id="footer-note" class="text-[10px] text-slate-500 mb-4 italic">
             Outil indicatif basé sur les barèmes légaux. Seule la CAF/MSA peut valider vos droits.
         </p>
 
-        <div class="flex flex-wrap justify-center gap-6 text-[10px] text-[#0063B1] font-bold">
-            <a href="https://www.service-public.fr" target="_blank">Service-Public</a>
-            <a href="https://www.caf.fr" target="_blank">Caf</a>
-            <a href="https://www.msa.fr" target="_blank">MSA</a>
-            <a href="#mentions-legales">Mentions légales</a>
-            <a href="#confidentialite">Confidentialité</a>
+        <!-- BLOC LÉGAL AJOUTÉ (SAFE ADSENSE) -->
+        <div class="mt-6 text-[10px] text-slate-500 max-w-3xl mx-auto leading-relaxed">
+            <p class="mb-2">
+                <strong>Mentions légales :</strong>
+                Le site calcul-aah.fr propose un simulateur de l’Allocation aux Adultes Handicapés
+                à titre strictement indicatif. Les résultats fournis n’ont aucune valeur légale.
+                Seules la CAF ou la MSA peuvent valider définitivement vos droits.
+            </p>
+
+            <p class="mb-2">
+                Éditeur : calcul-aah.fr – Simulateur AAH.
+                Contact :
+                <a href="mailto:laloumaxime951@gmail.com"
+                   class="text-[#0063B1] font-bold hover:underline">
+                    laloumaxime951@gmail.com
+                </a>
+            </p>
+
+            <p>
+                Hébergement : OVHcloud SAS – 2 rue Kellermann, 59100 Roubaix – France.
+                Ce site ne collecte ni ne conserve aucune donnée personnelle.
+                Des cookies techniques ou publicitaires peuvent être utilisés.
+            </p>
         </div>
+        <!-- FIN BLOC LÉGAL -->
+
+        <div class="flex justify-center gap-6 text-[10px] text-[#0063B1] font-bold mt-6">
+            <a href="https://www.service-public.fr" target="_blank" class="hover:underline">Service-Public</a>
+            <a href="https://www.caf.fr" target="_blank" class="hover:underline">Caf</a>
+            <a href="https://www.msa.fr" target="_blank" class="hover:underline">MSA</a>
+        </div>
+
     </div>
 </footer>
 
-<script>
-    // TON SCRIPT EXISTANT N’EST PAS MODIFIÉ
-</script>
+    <script>
+        // DYNAMIC YEARS
+        const CURRENT_YEAR = new Date().getFullYear();
+        const N2_YEAR = CURRENT_YEAR - 2;
 
+        // Update static elements
+        document.getElementById('page-title').innerText = `Simulateur AAH ${CURRENT_YEAR} - Calcul Complet`;
+        document.getElementById('header-title').innerText = `Simulateur AAH ${CURRENT_YEAR}`;
+        document.getElementById('footer-note').innerHTML = `Outil indicatif basé sur les barèmes légaux ${CURRENT_YEAR}. Seule la CAF/MSA peut valider vos droits.`;
+
+        // DATA & STATE
+        const MONTANT_MAX_AAH = 1033.32;
+        const SEUIL_ABATTEMENT = 540.54;
+        const PLAFOND_BASE = 12399.84;
+        const MAJORATION_ENFANT = 6199.92;
+
+        let state = {
+            view: 'simulator',
+            step: 1,
+            result: null,
+            data: {
+                age: null,
+                nationalite: 'Française',
+                isHandicapped: true,
+                handicapRate: 80,
+                hasRSDAE: false,
+                livingSituation: 'Seul',
+                hasChildren: false,
+                childrenCount: 0,
+                hasProfessionalIncome: false,
+                professionalIncomes: {
+                    salaire: 0, primeActivite: 0, stageFormation: 0, remunerationStage: 0,
+                    autoEntrepreneur: 0, agricole: 0, microEntreprise: 0, liberal: 0
+                },
+                hasAllocations: false,
+                allocations: { rsa: 0, pensionInvalidite: 0, pensionAlimentaire: 0 },
+                resourcesN2: {
+                    activite: 0, autres: 0, pensions: 0, fraisReels: 0,
+                    pensionsRecues: 0, pensionsVersees: 0, foncierNet: 0
+                },
+                isHospitalized: false
+            }
+        };
+
+        // NAVIGATION
+        function changeView(view) {
+            state.view = view;
+            updateNav();
+            render();
+        }
+
+        function updateNav() {
+            document.getElementById('nav-sim').className = `px-3 py-1 rounded-full text-xs md:text-sm font-medium transition-colors ${state.view === 'simulator' ? 'bg-[#0063B1]' : 'hover:bg-blue-800'}`;
+            document.getElementById('nav-info').className = `px-3 py-1 rounded-full text-xs md:text-sm font-medium transition-colors ${state.view === 'info' ? 'bg-[#0063B1]' : 'hover:bg-blue-800'}`;
+        }
+
+        // LOGIC
+        function calculate() {
+            let messages = [];
+            const d = state.data;
+            
+            if (d.age < 16) return { isEligible: false, amount: 0, messages: ["Âge minimum : 16 ans."] };
+            if (!d.isHandicapped || d.handicapRate < 50) return { isEligible: false, amount: 0, messages: ["Taux d'incapacité insuffisant (< 50%)."] };
+            
+            if (d.handicapRate < 80 && !d.hasRSDAE) {
+                messages.push("Attention : Entre 50% et 79%, la RSDAE est requise pour l'attribution.");
+            }
+
+            // Calcul abattement revenus pro
+            let sumProf = Object.values(d.professionalIncomes).reduce((a, b) => a + b, 0);
+            let tr1 = Math.min(sumProf, SEUIL_ABATTEMENT);
+            let tr2 = Math.max(0, sumProf - SEUIL_ABATTEMENT);
+            let incomeUsed = (tr1 * 0.2) + (tr2 * 0.6); // On garde 20% puis 60%
+
+            // Calcul N-2 mensuel
+            const n2 = d.resourcesN2;
+            let sumN2 = n2.activite + n2.autres + n2.pensions + n2.pensionsRecues + n2.foncierNet - n2.fraisReels - n2.pensionsVersees;
+            let n2Monthly = Math.max(0, sumN2 / 12);
+
+            let sumAlloc = Object.values(d.allocations).reduce((a, b) => a + b, 0);
+            let totalMonthly = incomeUsed + n2Monthly + sumAlloc;
+
+            let baseAmount = d.isHospitalized ? (MONTANT_MAX_AAH * 0.3) : MONTANT_MAX_AAH;
+            let finalAmount = Math.max(0, baseAmount - totalMonthly);
+            
+            let ceiling = MONTANT_MAX_AAH + (d.childrenCount * (MONTANT_MAX_AAH / 2));
+            if (totalMonthly > ceiling) {
+                return { isEligible: false, amount: 0, messages: ["Vos ressources mensuelles dépassent le plafond d'attribution."] };
+            }
+
+            return { isEligible: true, amount: finalAmount, messages };
+        }
+
+        // VIEWS
+        function render() {
+            const container = document.getElementById('app-content');
+            if (state.view === 'info') {
+                container.innerHTML = renderInfo();
+            } else {
+                container.innerHTML = renderSimulator();
+                attachEvents();
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function renderInfo() {
+            return `
+            <div class="max-w-4xl mx-auto py-6 md:py-10 px-4 animate-fade-in info-page-container">
+                <button onclick="changeView('simulator')" class="mb-6 flex items-center gap-2 text-[#0063B1] font-bold hover:underline">← Retour</button>
+                <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-10 info-banner-title">GUIDE DE L'AAH ${CURRENT_YEAR}</h1>
+                
+                <div class="space-y-12 text-slate-700 leading-relaxed">
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">1. Qu’est‑ce que l’AAH ?</h2>
+                        <p>L’Allocation aux Adultes Handicapés est une aide financière destinée à garantir un revenu minimum aux personnes handicapées. Elle permet de compenser l'impossibilité ou la difficulté d'accéder à un emploi en raison du handicap.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">2. Conditions d’attribution</h2>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Résidence :</strong> Résider de façon stable et régulière en France.</li>
+                            <li><strong>Âge :</strong> Avoir au moins 20 ans (ou 16 ans si vous n'êtes plus à la charge de vos parents).</li>
+                            <li><strong>Handicap :</strong> Taux ≥ 80% ou 50-79% avec Restriction Substantielle et Durable d'Accès à l'Emploi (RSDAE).</li>
+                            <li><strong>Ressources :</strong> Ne pas dépasser les plafonds (ex: 12 399,84 €/an pour une personne seule, +6 199,92 € par enfant).</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">3. Calcul et montant ${CURRENT_YEAR}</h2>
+                        <p>Le montant maximal est de <strong>1 033,32 € par mois</strong> (valeur de référence). L'AAH est dite "différentielle" : si vous avez d'autres revenus, l'allocation versée correspond à la différence entre ce plafond et vos ressources après abattements.</p>
+                        <div class="mt-4 bg-slate-100 p-4 rounded-xl text-sm italic">
+                            <strong>Exemple :</strong> Si vous gagnez 600€, la CAF applique un abattement (ex: 80% sur la 1ère tranche). Seule une fraction de votre salaire est déduite des 1033,32€.
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">4. Travail et cumul</h2>
+                        <p>Il est tout à fait possible de travailler. Vos revenus réduisent le montant de l'AAH mais ne l'annulent pas forcément. Si vos revenus diminuent ou cessent, l'AAH peut être recalculée ou reprise à taux plein.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">5. Durée des droits</h2>
+                        <p>Les droits sont accordés par la CDAPH pour une durée de 1 à 10 ans, ou à vie si le handicap n'est pas susceptible d'évoluer favorablement (notamment pour les taux ≥ 80%).</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">6. Démarches MDPH</h2>
+                        <p>Le dossier doit être déposé à la MDPH de votre département. Il comprend un formulaire de demande, un certificat médical de moins de 12 mois et des pièces justificatives. La CDAPH statue ensuite sur votre taux.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">7. Majorations et compléments</h2>
+                        <p><strong>La MVA (Majoration pour la Vie Autonome) :</strong> 104,77 €/mois. Pour en bénéficier : taux ≥ 80%, logement indépendant, percevoir une aide au logement et ne pas travailler.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">8. Refus et recours</h2>
+                        <p>En cas de refus, vous pouvez former un Recours Administratif Préalable Obligatoire (RAPO) auprès de la MDPH dans les 2 mois pour demander un nouvel examen de votre situation.</p>
+                    </section>
+                </div>
+            </div>`;
+        }
+
+        function renderSimulator() {
+            if (state.result) return renderResult();
+            let progress = (state.step / 5) * 100;
+            return `
+            <div class="py-6 md:py-10 animate-fade-in">
+                <div class="text-center mb-6 md:mb-10 px-4 intro-section">
+                    <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-2 intro-title uppercase">Estimez votre AAH ${CURRENT_YEAR}</h1>
+                    <div class="text-slate-600 max-w-xl mx-auto intro-text">
+                        <p class="mb-1">Simulation précise en 5 étapes basée sur les derniers barèmes.</p>
+                        <p class="text-xs opacity-75">Simulateur d’Allocation aux Adultes Handicapés ${CURRENT_YEAR}</p>
+                    </div>
+                </div>
+                <div class="max-w-2xl mx-auto px-4">
+                    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                        <div class="h-2 bg-slate-100"><div class="h-full bg-[#0063B1] transition-all duration-500" style="width: ${progress}%"></div></div>
+                        <div class="p-6 md:p-10 step-card">
+                            ${renderStep()}
+                            <div class="flex gap-4 mt-8 pt-6 border-t border-slate-100">
+                                ${state.step > 1 ? `<button onclick="prevStep()" class="flex-1 bg-slate-100 text-slate-500 font-bold py-4 rounded-2xl hover:bg-slate-200">Précédent</button>` : ''}
+                                ${state.step < 5 ? 
+                                    `<button onclick="nextStep()" class="flex-1 bg-[#0063B1] text-white font-bold py-4 rounded-2xl hover:bg-blue-700 shadow-lg">Suivant</button>` : 
+                                    `<button onclick="finish()" class="flex-1 bg-[#00205B] text-white font-bold py-4 rounded-2xl hover:bg-slate-800 shadow-xl">Calculer mon AAH</button>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function renderStep() {
+            switch(state.step) {
+                case 1: return `
+                    <h2 class="text-xl font-bold text-[#00205B] mb-8">Étape 1 : Informations personnelles</h2>
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Âge</label>
+                        <input type="number" id="age-input" min="16" max="100" placeholder="Ex : 25" value="${state.data.age || ''}" class="w-full px-4 py-3 border-2 rounded-xl focus:border-[#0063B1] outline-none transition-all">
+                    </div>
+                    <div class="mb-8">
+                        <label class="block text-sm font-bold text-slate-700 mb-3">Nationalité</label>
+                        <div class="space-y-2">
+                            ${['Française', 'EEE - UE - Suisse', 'Hors UE'].map(n => `
+                                <label class="flex items-center gap-3 p-3 border-2 rounded-xl cursor-pointer hover:bg-slate-50 transition-all ${state.data.nationalite === n ? 'border-[#0063B1] bg-blue-50' : 'border-slate-100'}">
+                                    <input type="radio" name="nat" value="${n}" ${state.data.nationalite === n ? 'checked' : ''} onchange="updateData('nationalite', '${n}')" class="w-4 h-4 text-[#0063B1]">
+                                    <span class="text-sm font-medium">${n}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-slate-700 mb-3">Situation de handicap ?</label>
+                        <div class="flex gap-3">
+                            <button onclick="updateHandicap(true)" class="flex-1 py-3 border-2 rounded-xl font-bold ${state.data.isHandicapped ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100'}">Oui</button>
+                            <button onclick="updateHandicap(false)" class="flex-1 py-3 border-2 rounded-xl font-bold ${!state.data.isHandicapped ? 'border-red-500 bg-red-50 text-red-500' : 'border-slate-100'}">Non</button>
+                        </div>
+                    </div>
+                    ${state.data.isHandicapped ? `
+                        <div class="p-5 bg-slate-50 rounded-2xl animate-fade-in">
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-4 tracking-wider">Taux d'incapacité : <span class="text-[#0063B1] font-black">${state.data.handicapRate}%</span></label>
+                            <input type="range" id="rate-input" min="0" max="100" value="${state.data.handicapRate}" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer mb-4">
+                            <p class="text-xs font-bold ${state.data.handicapRate < 50 ? 'text-red-500' : 'text-emerald-600'} mb-4">
+                                ${state.data.handicapRate < 50 ? '⚠ Moins de 50%' : state.data.handicapRate >= 80 ? '✓ 80% ou plus' : '⚠ Entre 50% et 79%'}
+                            </p>
+                            ${state.data.handicapRate >= 50 && state.data.handicapRate < 80 ? `
+                                <label class="flex items-start gap-3 p-3 bg-white border-2 border-blue-100 rounded-xl cursor-pointer">
+                                    <input type="checkbox" id="rsdae-input" ${state.data.hasRSDAE ? 'checked' : ''} class="mt-1 w-4 h-4">
+                                    <span class="text-[11px] leading-tight text-blue-800 font-bold uppercase">J'ai une Restriction Substantielle et Durable d'Accès à l'Emploi (RSDAE)</span>
+                                </label>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+                `;
+                case 2: return `
+                    <h2 class="text-xl font-bold text-[#00205B] mb-8">Étape 2 : Situation familiale</h2>
+                    <div class="mb-8">
+                        <label class="block text-sm font-bold text-slate-700 mb-3">Vivez-vous en couple ou seul ?</label>
+                        <div class="flex gap-4">
+                            <button onclick="updateData('livingSituation', 'Seul')" class="flex-1 py-4 border-2 rounded-2xl font-black ${state.data.livingSituation === 'Seul' ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100 text-slate-400'}">SEUL</button>
+                            <button onclick="updateData('livingSituation', 'En couple')" class="flex-1 py-4 border-2 rounded-2xl font-black ${state.data.livingSituation === 'En couple' ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100 text-slate-400'}">EN COUPLE</button>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-slate-700 mb-3">Avez-vous des enfants à charge ?</label>
+                        <div class="flex gap-3">
+                            <button onclick="updateChildren(true)" class="flex-1 py-3 border-2 rounded-xl font-bold ${state.data.hasChildren ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100'}">Oui</button>
+                            <button onclick="updateChildren(false)" class="flex-1 py-3 border-2 rounded-xl font-bold ${!state.data.hasChildren ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100'}">Non</button>
+                        </div>
+                    </div>
+                    ${state.data.hasChildren ? `
+                        <div class="animate-fade-in">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Nombre d'enfants</label>
+                            <input type="number" id="child-input" min="1" value="${state.data.childrenCount || 1}" class="w-full px-4 py-3 border-2 rounded-xl outline-none focus:border-[#0063B1]">
+                        </div>
+                    ` : ''}
+                `;
+                case 3: return `
+                    <h2 class="text-xl font-bold text-[#00205B] mb-2">Étape 3 : Revenus professionnels récents</h2>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Vos ressources personnelles uniquement</p>
+                    <p class="text-xs text-blue-700 font-medium mb-6 italic">Indiquez vos revenus en mensuel (€/mois). Si vous ne connaissez qu’un montant annuel, divisez-le par 12.</p>
+                    <div class="mb-8">
+                        <label class="block text-sm font-bold text-slate-700 mb-3">Avez-vous perçu des revenus depuis janvier ?</label>
+                        <div class="flex gap-3">
+                            <button onclick="updateData('hasProfessionalIncome', true)" class="flex-1 py-3 border-2 rounded-xl font-bold ${state.data.hasProfessionalIncome ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100'}">Oui</button>
+                            <button onclick="updateData('hasProfessionalIncome', false)" class="flex-1 py-3 border-2 rounded-xl font-bold ${!state.data.hasProfessionalIncome ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100'}">Non</button>
+                        </div>
+                    </div>
+                    ${state.data.hasProfessionalIncome ? `
+                        <div class="space-y-4 max-h-80 overflow-y-auto pr-2 custom-scrollbar animate-fade-in">
+                            ${renderIncome('Salaire (primes, fin de contrat)', 'salaire')}
+                            ${renderIncome('Prime d\'activité', 'primeActivite')}
+                            ${renderIncome('Revenu stage formation pro', 'stageFormation')}
+                            ${renderIncome('Rémunération de stage', 'remunerationStage')}
+                            ${renderIncome('Auto-entrepreneur', 'autoEntrepreneur')}
+                            ${renderIncome('Exploitant agricole', 'agricole')}
+                            ${renderIncome('Micro-entreprise', 'microEntreprise')}
+                            ${renderIncome('Profession libérale, entrepreneur', 'liberal')}
+                        </div>
+                    ` : ''}
+                `;
+                case 4: return `
+                    <h2 class="text-xl font-bold text-[#00205B] mb-8">Étape 4 : Autres ressources et N-2</h2>
+                    <div class="mb-10">
+                        <label class="block text-sm font-bold text-slate-700 mb-3">Allocations récentes (RSA, Invalidité...) ?</label>
+                        <div class="flex gap-3 mb-4">
+                            <button onclick="updateData('hasAllocations', true)" class="flex-1 py-3 border-2 rounded-xl font-bold ${state.data.hasAllocations ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100'}">Oui</button>
+                            <button onclick="updateData('hasAllocations', false)" class="flex-1 py-3 border-2 rounded-xl font-bold ${!state.data.hasAllocations ? 'border-[#0063B1] bg-blue-50 text-[#0063B1]' : 'border-slate-100'}">Non</button>
+                        </div>
+                        ${state.data.hasAllocations ? `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 animate-fade-in">
+                                ${renderAlloc('RSA', 'rsa')}
+                                ${renderAlloc('Pension Invalidité', 'pensionInvalidite')}
+                                ${renderAlloc('Pension Alimentaire', 'pensionAlimentaire')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="bg-slate-100 p-6 rounded-3xl">
+                        <h3 class="text-xs font-black text-slate-500 uppercase mb-2 tracking-widest">Ressources N-2 (Revenus ${N2_YEAR})</h3>
+                        <p class="text-[10px] text-blue-700 font-bold mb-5 italic">Indiquez les montants annuels (total sur l’année ${N2_YEAR}). Le simulateur les convertira automatiquement en équivalent mensuel.</p>
+                        <div class="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                            ${renderN2('Revenus d\'activité connus', 'activite')}
+                            ${renderN2('Autres (chômage, préretraite)', 'autres')}
+                            ${renderN2('Pensions, retraites, rentes', 'pensions')}
+                            ${renderN2('Frais réels déductibles', 'fraisReels')}
+                            ${renderN2('Pensions alimentaires reçues', 'pensionsRecues')}
+                            ${renderN2('Pensions alimentaires versées', 'pensionsVersees')}
+                            ${renderN2('Revenus fonciers nets', 'foncierNet')}
+                        </div>
+                    </div>
+                    <label class="flex items-center gap-3 p-4 bg-yellow-50 border-2 border-yellow-100 rounded-2xl cursor-pointer mt-8">
+                        <input type="checkbox" id="hosp-input" ${state.data.isHospitalized ? 'checked' : ''} class="w-5 h-5">
+                        <span class="text-xs text-yellow-800 font-bold uppercase tracking-tighter">Hospitalisé ou incarcéré (> 60 jours)</span>
+                    </label>
+                `;
+                case 5: return `
+                    <h2 class="text-xl font-bold text-[#00205B] mb-8">Étape 5 : Résumé final</h2>
+                    <div class="space-y-4 bg-slate-50 p-8 rounded-3xl shadow-inner text-sm">
+                        <div class="flex justify-between border-b border-slate-200 pb-3"><span class="font-medium text-slate-500">Âge</span><span class="font-black">${state.data.age} ans</span></div>
+                        <div class="flex justify-between border-b border-slate-200 pb-3"><span class="font-medium text-slate-500">Handicap</span><span class="font-black text-[#0063B1]">${state.data.handicapRate}%</span></div>
+                        <div class="flex justify-between border-b border-slate-200 pb-3"><span class="font-medium text-slate-500">Situation</span><span class="font-black">${state.data.livingSituation}</span></div>
+                        <div class="flex justify-between border-b border-slate-200 pb-3"><span class="font-medium text-slate-500">Enfants</span><span class="font-black">${state.data.childrenCount}</span></div>
+                        <div class="flex justify-between"><span class="font-medium text-slate-500">Revenus mensuels</span><span class="font-black text-emerald-600">${Object.values(state.data.professionalIncomes).reduce((a, b) => a + b, 0).toFixed(2)} €</span></div>
+                    </div>
+                `;
+            }
+        }
+
+        // HELPERS
+        function renderIncome(l, k) { return `<div><label class="block text-[10px] font-black text-slate-500 uppercase mb-1">${l}</label><input type="number" oninput="state.data.professionalIncomes.${k}=parseFloat(this.value)||0" value="${state.data.professionalIncomes[k]||''}" placeholder="0 € / mois" class="w-full px-4 py-2 border-2 rounded-xl text-sm outline-none focus:border-[#0063B1]"></div>`; }
+        function renderAlloc(l, k) { return `<div><label class="block text-[10px] font-black text-slate-500 uppercase mb-1">${l}</label><input type="number" oninput="state.data.allocations.${k}=parseFloat(this.value)||0" value="${state.data.allocations[k]||''}" placeholder="0 €" class="w-full px-4 py-2 border-2 rounded-xl text-sm outline-none focus:border-[#0063B1]"></div>`; }
+        function renderN2(l, k) { return `<div><label class="block text-[10px] font-black text-slate-400 uppercase mb-1">${l}</label><input type="number" oninput="state.data.resourcesN2.${k}=parseFloat(this.value)||0" value="${state.data.resourcesN2[k]||''}" placeholder="0 € (année ${N2_YEAR})" class="w-full px-3 py-1.5 border-2 border-slate-200 rounded-lg text-xs outline-none focus:border-[#0063B1]"></div>`; }
+
+        function renderResult() {
+            const res = state.result;
+            return `
+            <div class="max-w-2xl mx-auto px-4 py-10 animate-fade-in">
+                <div class="bg-white rounded-[2rem] shadow-2xl overflow-hidden p-8 md:p-12">
+                    <h2 class="text-3xl font-black text-[#00205B] mb-10 text-center tracking-tighter">ESTIMATION TERMINÉE</h2>
+                    <div class="p-10 rounded-[2rem] mb-10 text-center ${res.isEligible ? 'bg-emerald-50 border-4 border-emerald-100' : 'bg-red-50 border-4 border-red-100'}">
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">${res.isEligible ? 'Allocation Mensuelle' : 'Statut'}</p>
+                        <p class="text-6xl font-black ${res.isEligible ? 'text-emerald-600' : 'text-red-500'}">
+                            ${res.isEligible ? res.amount.toFixed(2) + ' €' : 'REFUSÉE'}
+                        </p>
+                    </div>
+                    <div class="space-y-4 mb-10">
+                        ${res.messages.map(m => `<div class="bg-slate-50 p-5 rounded-2xl text-sm text-slate-600 border-l-8 border-blue-500 shadow-sm font-medium">ⓘ ${m}</div>`).join('')}
+                    </div>
+                    <button onclick="restart()" class="w-full bg-[#00205B] text-white font-black py-5 rounded-2xl hover:bg-slate-800 transition-all shadow-xl uppercase tracking-widest text-sm">Nouvelle Simulation</button>
+                </div>
+            </div>`;
+        }
+
+        // EVENTS
+        function attachEvents() {
+            const ageInput = document.getElementById('age-input');
+            if (ageInput) {
+                ageInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/^0+/, '');
+                    state.data.age = parseInt(this.value) || null;
+                });
+            }
+            const rateInput = document.getElementById('rate-input');
+            if (rateInput) {
+                rateInput.addEventListener('input', function() {
+                    state.data.handicapRate = parseInt(this.value);
+                    render();
+                });
+            }
+            const rsdaeInput = document.getElementById('rsdae-input');
+            if (rsdaeInput) rsdaeInput.onchange = (e) => state.data.hasRSDAE = e.target.checked;
+            const childInput = document.getElementById('child-input');
+            if (childInput) childInput.oninput = (e) => state.data.childrenCount = parseInt(e.target.value) || 1;
+            const hospInput = document.getElementById('hosp-input');
+            if (hospInput) hospInput.onchange = (e) => state.data.isHospitalized = e.target.checked;
+        }
+
+        function updateData(k, v) { state.data[k] = v; render(); }
+        function updateHandicap(v) { state.data.isHandicapped = v; render(); }
+        function updateChildren(v) { state.data.hasChildren = v; if(!v) state.data.childrenCount = 0; render(); }
+        function nextStep() { state.step++; render(); }
+        function prevStep() { state.step--; render(); }
+        function finish() { state.result = calculate(); render(); }
+        function restart() {
+            state = { view: 'simulator', step: 1, result: null, data: { age: null, nationalite: 'Française', isHandicapped: true, handicapRate: 80, hasRSDAE: false, livingSituation: 'Seul', hasChildren: false, childrenCount: 0, hasProfessionalIncome: false, professionalIncomes: { salaire: 0, primeActivite: 0, stageFormation: 0, remunerationStage: 0, autoEntrepreneur: 0, agricole: 0, microEntreprise: 0, liberal: 0 }, hasAllocations: false, allocations: { rsa: 0, pensionInvalidite: 0, pensionAlimentaire: 0 }, resourcesN2: { activite: 0, autres: 0, pensions: 0, fraisReels: 0, pensionsRecues: 0, pensionsVersees: 0, foncierNet: 0 }, isHospitalized: false } };
+            render();
+        }
+
+        render();
+    </script>
 </body>
 </html>
