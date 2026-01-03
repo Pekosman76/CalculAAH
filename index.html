@@ -10,7 +10,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
     <link rel="manifest" href="/site.webmanifest?v=3">
     <title id="page-title">Simulateur AAH - Calcul Complet</title>
-
+    <meta name="description" content="Simulateur AAH : estimez votre Allocation aux Adultes Handicapés en quelques étapes. Guide complet (conditions, ressources, cumul, démarches MDPH) et outil gratuit d'estimation." />
+    <link rel="canonical" href="https://calcul-aah.fr/" />
+    <meta name="robots" content="index, follow" />
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2367869499715237"
      crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -287,12 +290,96 @@
                 </div>
             </div>`;
         }
+        function renderEditorialTop() {
+  return `
+  <section class="max-w-3xl mx-auto px-4 mb-8">
+    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
+      <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
+        AAH ${CURRENT_YEAR} : guide simple + simulateur gratuit
+      </h2>
 
+      <p class="text-slate-700 leading-relaxed mb-4">
+        Ce site propose un <strong>outil d’estimation</strong> de l’Allocation aux Adultes Handicapés (AAH) basé sur les barèmes de référence.
+        L’AAH est une aide financière destinée à garantir un revenu minimum aux personnes en situation de handicap.
+        <strong>Seule la CAF ou la MSA</strong> peut valider définitivement vos droits.
+      </p>
+
+      <h3 class="text-lg font-bold text-[#0063B1] mb-2">Comment est calculée l’AAH ?</h3>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        L’AAH est une allocation dite <strong>différentielle</strong> : le montant versé correspond à une différence entre un plafond (montant maximal)
+        et vos ressources (revenus professionnels, pensions, allocations, ressources N-2 selon les situations), après application d’abattements.
+        Travailler peut réduire l’AAH, mais ne l’annule pas forcément.
+      </p>
+
+      <h3 class="text-lg font-bold text-[#0063B1] mb-2">Ce que fait ce simulateur</h3>
+      <ul class="list-disc pl-5 space-y-1 text-slate-700">
+        <li>Estimation en quelques étapes avec conversion des ressources annuelles N-2 en équivalent mensuel.</li>
+        <li>Prise en compte d’abattements sur revenus d’activité (selon tranches).</li>
+        <li>Cas particuliers : hospitalisation/incarcération longue.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 mt-4 italic">
+        Important : ce simulateur donne une estimation indicative. Les règles et votre situation peuvent nécessiter une étude individuelle.
+      </p>
+    </div>
+  </section>
+  `;
+}
+
+function renderEditorialBottom() {
+  return `
+  <section class="max-w-3xl mx-auto px-4 mt-10">
+    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
+      <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
+        Comprendre votre résultat
+      </h2>
+
+      <div class="space-y-4 text-slate-700 leading-relaxed">
+        <p>
+          Si votre estimation est faible (ou à 0 €), cela signifie généralement que vos ressources prises en compte
+          approchent ou dépassent le plafond de l’AAH. Dans d’autres cas, un abattement peut limiter l’impact de certains revenus.
+        </p>
+
+        <h3 class="text-lg font-bold text-[#0063B1]">Questions fréquentes</h3>
+        <div class="space-y-3">
+          <details class="bg-slate-50 rounded-2xl p-4">
+            <summary class="font-bold cursor-pointer">Puis-je travailler tout en touchant l’AAH ?</summary>
+            <p class="mt-2 text-sm">
+              Oui. Vos revenus peuvent réduire l’AAH, mais l’allocation peut rester partielle selon votre situation et les abattements applicables.
+            </p>
+          </details>
+
+          <details class="bg-slate-50 rounded-2xl p-4">
+            <summary class="font-bold cursor-pointer">Pourquoi des ressources N-2 sont demandées ?</summary>
+            <p class="mt-2 text-sm">
+              Certaines évaluations s’appuient sur des ressources antérieures (année N-2) selon votre dossier et les informations disponibles.
+              Le simulateur convertit ces montants annuels en équivalent mensuel pour estimer l’impact.
+            </p>
+          </details>
+
+          <details class="bg-slate-50 rounded-2xl p-4">
+            <summary class="font-bold cursor-pointer">Qui décide de l’attribution ?</summary>
+            <p class="mt-2 text-sm">
+              La MDPH (via la CDAPH) statue sur le taux d’incapacité et la CAF/MSA calcule ensuite les droits et le montant.
+            </p>
+          </details>
+        </div>
+
+        <h3 class="text-lg font-bold text-[#0063B1]">Sources utiles</h3>
+        <p class="text-sm">
+          Pour vérifier les règles officielles et démarches : Service-Public, CAF, MSA, et votre MDPH.
+        </p>
+      </div>
+    </div>
+  </section>
+  `;
+}
         function renderSimulator() {
             if (state.result) return renderResult();
             let progress = (state.step / 5) * 100;
             return `
             <div class="py-6 md:py-10 animate-fade-in">
+            ${renderEditorialTop()}
                 <div class="text-center mb-6 md:mb-10 px-4 intro-section">
                     <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-2 intro-title uppercase">Estimez votre AAH ${CURRENT_YEAR}</h1>
                     <div class="text-slate-600 max-w-xl mx-auto intro-text">
@@ -315,6 +402,7 @@
                         </div>
                     </div>
                 </div>
+                 ${renderEditorialBottom()}
             </div>`;
         }
 
