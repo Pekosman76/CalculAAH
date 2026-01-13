@@ -71,9 +71,41 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <main id="app-content" class="flex-grow">
-        <!-- Injected by JS -->
-    </main>
+        <main id="app-content" class="flex-grow">
+        <!-- ✅ Fallback éditorial visible sans JS (pour AdSense + users JS off) -->
+        <section id="static-editorial" class="py-6 md:py-10">
+            <div class="max-w-3xl mx-auto px-4">
+            <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
+                <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-4">
+                AAH 2026 : guide simple + simulateur gratuit
+                </h1>
+
+                <p class="text-slate-700 leading-relaxed mb-4">
+                Ce site propose un <strong>outil d’estimation</strong> de l’Allocation aux Adultes Handicapés (AAH) basé sur les barèmes de référence.
+                L’AAH est une aide financière destinée à garantir un revenu minimum aux personnes en situation de handicap.
+                <strong>Seule la CAF ou la MSA</strong> peut valider définitivement vos droits.
+                </p>
+
+                <h2 class="text-lg font-bold text-[#0063B1] mb-2">Comment est calculée l’AAH ?</h2>
+                <p class="text-slate-700 leading-relaxed mb-4">
+                L’AAH est une allocation dite <strong>différentielle</strong> : le montant versé correspond à une différence entre un plafond et vos ressources
+                (revenus professionnels, pensions, allocations, ressources N-2 selon les situations), après application d’abattements.
+                </p>
+
+                <h2 class="text-lg font-bold text-[#0063B1] mb-2">Accéder au simulateur</h2>
+                <p class="text-slate-700 leading-relaxed">
+                Activez JavaScript pour utiliser le simulateur interactif. Sinon, consultez le guide “En savoir plus”.
+                </p>
+
+                <noscript>
+                <p class="mt-4 text-sm text-red-600 font-bold">
+                    JavaScript est désactivé : le simulateur ne peut pas s’afficher. Activez JavaScript pour faire une estimation.
+                </p>
+                </noscript>
+            </div>
+            </div>
+        </section>
+        </main>
 
 <!-- FOOTER -->
 <footer class="bg-slate-100 border-t border-slate-200 py-8 mt-10">
@@ -224,6 +256,10 @@
 
         // VIEWS
         function render() {
+            const staticBlock = document.getElementById('static-editorial');
+            if (staticBlock) staticBlock.style.display = 'none';
+
+            const container = document.getElementById('app-content');
             const container = document.getElementById('app-content');
             if (state.view === 'info') {
                 container.innerHTML = renderInfo();
