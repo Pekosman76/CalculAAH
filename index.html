@@ -256,17 +256,21 @@
 
         // VIEWS
         function render() {
-            const staticBlock = document.getElementById('static-editorial');
-            if (staticBlock) staticBlock.style.display = 'none';
+            const container = document.getElementById('app-content');
+            if (!container) return;
 
-            const container = document.getElementById('app-content');
-            const container = document.getElementById('app-content');
+            // On rend d'abord le contenu dynamique
             if (state.view === 'info') {
                 container.innerHTML = renderInfo();
             } else {
                 container.innerHTML = renderSimulator();
                 attachEvents();
             }
+
+            // ✅ Ensuite seulement, on masque le fallback
+            const staticBlock = document.getElementById('static-editorial');
+            if (staticBlock) staticBlock.style.display = 'none';
+
             window.scrollTo(0, 0);
         }
 
