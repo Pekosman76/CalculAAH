@@ -71,7 +71,7 @@
     </header>
 
     <!-- MAIN CONTENT -->
-        <main id="app-content" class="flex-grow">
+    <main id="app-content" class="flex-grow">
         <!-- ✅ Fallback éditorial visible sans JS (pour AdSense + users JS off) -->
         <section id="static-editorial" class="py-6 md:py-10">
             <div class="max-w-3xl mx-auto px-4">
@@ -105,7 +105,7 @@
             </div>
             </div>
         </section>
-        </main>
+    </main>
 
 <!-- FOOTER -->
 <footer class="bg-slate-100 border-t border-slate-200 py-8 mt-10">
@@ -254,10 +254,16 @@
             return { isEligible: true, amount: finalAmount, messages };
         }
 
+        // ✅ on scroll EN HAUT uniquement quand on change de vue (Simulateur <-> Info)
+        let lastView = state.view;
+
         // VIEWS
         function render() {
             const container = document.getElementById('app-content');
             if (!container) return;
+
+            const viewChanged = (state.view !== lastView);
+            lastView = state.view;
 
             // On rend d'abord le contenu dynamique
             if (state.view === 'info') {
@@ -271,7 +277,8 @@
             const staticBlock = document.getElementById('static-editorial');
             if (staticBlock) staticBlock.style.display = 'none';
 
-            window.scrollTo(0, 0);
+            // ✅ PLUS de scroll à chaque clic -> seulement si on change de vue
+            if (viewChanged) window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
         function renderInfo() {
@@ -282,7 +289,7 @@
                 
                 <div class="space-y-12 text-slate-700 leading-relaxed">
                     <section>
-                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">1. Qu’est‑ce que l’AAH ?</h2>
+                        <h2 class="text-2xl font-bold text-[#0063B1] mb-4">1. Qu’est-ce que l’AAH ?</h2>
                         <p>L’Allocation aux Adultes Handicapés est une aide financière destinée à garantir un revenu minimum aux personnes handicapées. Elle permet de compenser l'impossibilité ou la difficulté d'accéder à un emploi en raison du handicap.</p>
                     </section>
 
@@ -331,101 +338,105 @@
                 </div>
             </div>`;
         }
+
         function renderEditorialTop() {
-  return `
-  <section class="max-w-3xl mx-auto px-4 mb-8">
-    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
-      <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
-        AAH ${CURRENT_YEAR} : guide simple + simulateur gratuit
-      </h2>
+          return `
+          <section class="max-w-3xl mx-auto px-4 mt-10">
+            <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
+              <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
+                AAH ${CURRENT_YEAR} : guide simple + simulateur gratuit
+              </h2>
 
-      <p class="text-slate-700 leading-relaxed mb-4">
-        Ce site propose un <strong>outil d’estimation</strong> de l’Allocation aux Adultes Handicapés (AAH) basé sur les barèmes de référence.
-        L’AAH est une aide financière destinée à garantir un revenu minimum aux personnes en situation de handicap.
-        <strong>Seule la CAF ou la MSA</strong> peut valider définitivement vos droits.
-      </p>
+              <p class="text-slate-700 leading-relaxed mb-4">
+                Ce site propose un <strong>outil d’estimation</strong> de l’Allocation aux Adultes Handicapés (AAH) basé sur les barèmes de référence.
+                L’AAH est une aide financière destinée à garantir un revenu minimum aux personnes en situation de handicap.
+                <strong>Seule la CAF ou la MSA</strong> peut valider définitivement vos droits.
+              </p>
 
-      <h3 class="text-lg font-bold text-[#0063B1] mb-2">Comment est calculée l’AAH ?</h3>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        L’AAH est une allocation dite <strong>différentielle</strong> : le montant versé correspond à une différence entre un plafond (montant maximal)
-        et vos ressources (revenus professionnels, pensions, allocations, ressources N-2 selon les situations), après application d’abattements.
-        Travailler peut réduire l’AAH, mais ne l’annule pas forcément.
-      </p>
-      <p class="text-slate-600 text-sm italic mb-4">
-      Ce site est un outil indépendant d’information et de simulation. 
-      Il n’est affilié à aucun organisme officiel et a pour seul objectif 
-      d’aider à comprendre les règles générales de l’AAH à titre indicatif.
-    </p>
+              <h3 class="text-lg font-bold text-[#0063B1] mb-2">Comment est calculée l’AAH ?</h3>
+              <p class="text-slate-700 leading-relaxed mb-4">
+                L’AAH est une allocation dite <strong>différentielle</strong> : le montant versé correspond à une différence entre un plafond (montant maximal)
+                et vos ressources (revenus professionnels, pensions, allocations, ressources N-2 selon les situations), après application d’abattements.
+                Travailler peut réduire l’AAH, mais ne l’annule pas forcément.
+              </p>
 
-      <h3 class="text-lg font-bold text-[#0063B1] mb-2">Ce que fait ce simulateur</h3>
-      <ul class="list-disc pl-5 space-y-1 text-slate-700">
-        <li>Estimation en quelques étapes avec conversion des ressources annuelles N-2 en équivalent mensuel.</li>
-        <li>Prise en compte d’abattements sur revenus d’activité (selon tranches).</li>
-        <li>Cas particuliers : hospitalisation/incarcération longue.</li>
-      </ul>
+              <p class="text-slate-600 text-sm italic mb-4">
+                Ce site est un outil indépendant d’information et de simulation.
+                Il n’est affilié à aucun organisme officiel et a pour seul objectif
+                d’aider à comprendre les règles générales de l’AAH à titre indicatif.
+              </p>
 
-      <p class="text-xs text-slate-500 mt-4 italic">
-        Important : ce simulateur donne une estimation indicative. Les règles et votre situation peuvent nécessiter une étude individuelle.
-      </p>
-    </div>
-  </section>
-  `;
-}
+              <h3 class="text-lg font-bold text-[#0063B1] mb-2">Ce que fait ce simulateur</h3>
+              <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                <li>Estimation en quelques étapes avec conversion des ressources annuelles N-2 en équivalent mensuel.</li>
+                <li>Prise en compte d’abattements sur revenus d’activité (selon tranches).</li>
+                <li>Cas particuliers : hospitalisation/incarcération longue.</li>
+              </ul>
 
-function renderEditorialBottom() {
-  return `
-  <section class="max-w-3xl mx-auto px-4 mt-10">
-    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
-      <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
-        Comprendre votre résultat
-      </h2>
+              <p class="text-xs text-slate-500 mt-4 italic">
+                Important : ce simulateur donne une estimation indicative. Les règles et votre situation peuvent nécessiter une étude individuelle.
+              </p>
+            </div>
+          </section>
+          `;
+        }
 
-      <div class="space-y-4 text-slate-700 leading-relaxed">
-        <p>
-          Si votre estimation est faible (ou à 0 €), cela signifie généralement que vos ressources prises en compte
-          approchent ou dépassent le plafond de l’AAH. Dans d’autres cas, un abattement peut limiter l’impact de certains revenus.
-        </p>
+        function renderEditorialBottom() {
+          return `
+          <section class="max-w-3xl mx-auto px-4 mt-10">
+            <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
+              <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
+                Comprendre votre résultat
+              </h2>
 
-        <h3 class="text-lg font-bold text-[#0063B1]">Questions fréquentes</h3>
-        <div class="space-y-3">
-          <details class="bg-slate-50 rounded-2xl p-4">
-            <summary class="font-bold cursor-pointer">Puis-je travailler tout en touchant l’AAH ?</summary>
-            <p class="mt-2 text-sm">
-              Oui. Vos revenus peuvent réduire l’AAH, mais l’allocation peut rester partielle selon votre situation et les abattements applicables.
-            </p>
-          </details>
+              <div class="space-y-4 text-slate-700 leading-relaxed">
+                <p>
+                  Si votre estimation est faible (ou à 0 €), cela signifie généralement que vos ressources prises en compte
+                  approchent ou dépassent le plafond de l’AAH. Dans d’autres cas, un abattement peut limiter l’impact de certains revenus.
+                </p>
 
-          <details class="bg-slate-50 rounded-2xl p-4">
-            <summary class="font-bold cursor-pointer">Pourquoi des ressources N-2 sont demandées ?</summary>
-            <p class="mt-2 text-sm">
-              Certaines évaluations s’appuient sur des ressources antérieures (année N-2) selon votre dossier et les informations disponibles.
-              Le simulateur convertit ces montants annuels en équivalent mensuel pour estimer l’impact.
-            </p>
-          </details>
+                <h3 class="text-lg font-bold text-[#0063B1]">Questions fréquentes</h3>
+                <div class="space-y-3">
+                  <details class="bg-slate-50 rounded-2xl p-4">
+                    <summary class="font-bold cursor-pointer">Puis-je travailler tout en touchant l’AAH ?</summary>
+                    <p class="mt-2 text-sm">
+                      Oui. Vos revenus peuvent réduire l’AAH, mais l’allocation peut rester partielle selon votre situation et les abattements applicables.
+                    </p>
+                  </details>
 
-          <details class="bg-slate-50 rounded-2xl p-4">
-            <summary class="font-bold cursor-pointer">Qui décide de l’attribution ?</summary>
-            <p class="mt-2 text-sm">
-              La MDPH (via la CDAPH) statue sur le taux d’incapacité et la CAF/MSA calcule ensuite les droits et le montant.
-            </p>
-          </details>
-        </div>
+                  <details class="bg-slate-50 rounded-2xl p-4">
+                    <summary class="font-bold cursor-pointer">Pourquoi des ressources N-2 sont demandées ?</summary>
+                    <p class="mt-2 text-sm">
+                      Certaines évaluations s’appuient sur des ressources antérieures (année N-2) selon votre dossier et les informations disponibles.
+                      Le simulateur convertit ces montants annuels en équivalent mensuel pour estimer l’impact.
+                    </p>
+                  </details>
 
-        <h3 class="text-lg font-bold text-[#0063B1]">Sources utiles</h3>
-        <p class="text-sm">
-          Pour vérifier les règles officielles et démarches : Service-Public, CAF, MSA, et votre MDPH.
-        </p>
-      </div>
-    </div>
-  </section>
-  `;
-}
+                  <details class="bg-slate-50 rounded-2xl p-4">
+                    <summary class="font-bold cursor-pointer">Qui décide de l’attribution ?</summary>
+                    <p class="mt-2 text-sm">
+                      La MDPH (via la CDAPH) statue sur le taux d’incapacité et la CAF/MSA calcule ensuite les droits et le montant.
+                    </p>
+                  </details>
+                </div>
+
+                <h3 class="text-lg font-bold text-[#0063B1]">Sources utiles</h3>
+                <p class="text-sm">
+                  Pour vérifier les règles officielles et démarches : Service-Public, CAF, MSA, et votre MDPH.
+                </p>
+              </div>
+            </div>
+          </section>
+          `;
+        }
+
+        // ✅ ICI : on met le bloc rouge SOUS le simulateur (plus au-dessus)
         function renderSimulator() {
             if (state.result) return renderResult();
             let progress = (state.step / 5) * 100;
+
             return `
             <div class="py-6 md:py-10 animate-fade-in">
-            ${renderEditorialTop()}
                 <div class="text-center mb-6 md:mb-10 px-4 intro-section">
                     <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-2 intro-title uppercase">Estimez votre AAH ${CURRENT_YEAR}</h1>
                     <div class="text-slate-600 max-w-xl mx-auto intro-text">
@@ -433,9 +444,13 @@ function renderEditorialBottom() {
                         <p class="text-xs opacity-75">Simulateur d’Allocation aux Adultes Handicapés ${CURRENT_YEAR}</p>
                     </div>
                 </div>
+
                 <div class="max-w-2xl mx-auto px-4">
                     <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-                        <div class="h-2 bg-slate-100"><div class="h-full bg-[#0063B1] transition-all duration-500" style="width: ${progress}%"></div></div>
+                        <div class="h-2 bg-slate-100">
+                          <div class="h-full bg-[#0063B1] transition-all duration-500" style="width: ${progress}%"></div>
+                        </div>
+
                         <div class="p-6 md:p-10 step-card">
                             ${renderStep()}
                             <div class="flex gap-4 mt-8 pt-6 border-t border-slate-100">
@@ -448,7 +463,10 @@ function renderEditorialBottom() {
                         </div>
                     </div>
                 </div>
-                 ${renderEditorialBottom()}
+
+                <!-- ✅ Bloc rouge + FAQ EN DESSOUS du simulateur -->
+                ${renderEditorialTop()}
+                ${renderEditorialBottom()}
             </div>`;
         }
 
@@ -531,7 +549,7 @@ function renderEditorialBottom() {
                     ${state.data.hasProfessionalIncome ? `
                         <div class="space-y-4 max-h-80 overflow-y-auto pr-2 custom-scrollbar animate-fade-in">
                             ${renderIncome('Salaire (primes, fin de contrat)', 'salaire')}
-                            ${renderIncome('Prime d\'activité', 'primeActivite')}
+                            ${renderIncome('Prime d\\'activité', 'primeActivite')}
                             ${renderIncome('Revenu stage formation pro', 'stageFormation')}
                             ${renderIncome('Rémunération de stage', 'remunerationStage')}
                             ${renderIncome('Auto-entrepreneur', 'autoEntrepreneur')}
@@ -561,7 +579,7 @@ function renderEditorialBottom() {
                         <h3 class="text-xs font-black text-slate-500 uppercase mb-2 tracking-widest">Ressources N-2 (Revenus ${N2_YEAR})</h3>
                         <p class="text-[10px] text-blue-700 font-bold mb-5 italic">Indiquez les montants annuels (total sur l’année ${N2_YEAR}). Le simulateur les convertira automatiquement en équivalent mensuel.</p>
                         <div class="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-                            ${renderN2('Revenus d\'activité connus', 'activite')}
+                            ${renderN2('Revenus d\\'activité connus', 'activite')}
                             ${renderN2('Autres (chômage, préretraite)', 'autres')}
                             ${renderN2('Pensions, retraites, rentes', 'pensions')}
                             ${renderN2('Frais réels déductibles', 'fraisReels')}
@@ -626,7 +644,7 @@ function renderEditorialBottom() {
             if (rateInput) {
                 rateInput.addEventListener('input', function() {
                     state.data.handicapRate = parseInt(this.value);
-                    render();
+                    render(); // ✅ ne remonte plus en haut
                 });
             }
             const rsdaeInput = document.getElementById('rsdae-input');
@@ -646,6 +664,8 @@ function renderEditorialBottom() {
         function restart() {
             state = { view: 'simulator', step: 1, result: null, data: { age: null, nationalite: 'Française', isHandicapped: true, handicapRate: 80, hasRSDAE: false, livingSituation: 'Seul', hasChildren: false, childrenCount: 0, hasProfessionalIncome: false, professionalIncomes: { salaire: 0, primeActivite: 0, stageFormation: 0, remunerationStage: 0, autoEntrepreneur: 0, agricole: 0, microEntreprise: 0, liberal: 0 }, hasAllocations: false, allocations: { rsa: 0, pensionInvalidite: 0, pensionAlimentaire: 0 }, resourcesN2: { activite: 0, autres: 0, pensions: 0, fraisReels: 0, pensionsRecues: 0, pensionsVersees: 0, foncierNet: 0 }, isHospitalized: false } };
             render();
+            // optionnel: si tu veux remonter en haut seulement quand on relance une simulation:
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
         render();
