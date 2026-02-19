@@ -73,57 +73,40 @@
     <!-- MAIN CONTENT -->
         <main id="app-content" class="flex-grow">
         <!-- ✅ Fallback éditorial visible sans JS (pour AdSense + users JS off) -->
-            <section id="static-editorial" class="py-6 md:py-10">
+        <section id="static-editorial" class="py-6 md:py-10">
             <div class="max-w-3xl mx-auto px-4">
-                <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8 text-center">
-                <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-3">
-                    Simulateur  AAH 2026
+            <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
+                <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-4">
+                AAH 2026 : guide simple + simulateur gratuit
                 </h1>
 
+                <p class="text-slate-700 leading-relaxed mb-4">
+                Ce site propose un <strong>outil d’estimation</strong> de l’Allocation aux Adultes Handicapés (AAH) basé sur les barèmes de référence.
+                L’AAH est une aide financière destinée à garantir un revenu minimum aux personnes en situation de handicap.
+                <strong>Seule la CAF ou la MSA</strong> peut valider définitivement vos droits.
+                </p>
+
+                <h2 class="text-lg font-bold text-[#0063B1] mb-2">Comment est calculée l’AAH ?</h2>
+                <p class="text-slate-700 leading-relaxed mb-4">
+                L’AAH est une allocation dite <strong>différentielle</strong> : le montant versé correspond à une différence entre un plafond et vos ressources
+                (revenus professionnels, pensions, allocations, ressources N-2 selon les situations), après application d’abattements.
+                </p>
+
+                <h2 class="text-lg font-bold text-[#0063B1] mb-2">Accéder au simulateur</h2>
                 <p class="text-slate-700 leading-relaxed">
-                    Activez JavaScript pour utiliser le simulateur interactif. Sinon, consultez “En savoir plus”.
+                Activez JavaScript pour utiliser le simulateur interactif. Sinon, consultez le guide “En savoir plus”.
                 </p>
 
                 <noscript>
-                    <p class="mt-4 text-sm text-red-600 font-bold">
+                <p class="mt-4 text-sm text-red-600 font-bold">
                     JavaScript est désactivé : le simulateur ne peut pas s’afficher. Activez JavaScript pour faire une estimation.
-                    </p>
+                </p>
                 </noscript>
-                </div>
             </div>
-            </section>
+            </div>
+        </section>
         </main>
-<section id="static-editorial" class="py-6 md:py-10">
-    <div class="max-w-3xl mx-auto px-4">
-      <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
-        <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-4">
-          AAH 2026 : guide simple + simulateur gratuit
-        </h1>
 
-        <p class="text-slate-700 leading-relaxed mb-4">
-          Ce site propose un <strong>outil d’estimation</strong> de l’Allocation aux Adultes Handicapés (AAH) basé sur les barèmes de référence.
-          L’AAH est une aide financière destinée à garantir un revenu minimum aux personnes en situation de handicap.
-          <strong>Seule la CAF ou la MSA</strong> peut valider définitivement vos droits.
-        </p>
-
-        <h2 class="text-lg font-bold text-[#0063B1] mb-2">Comment est calculée l’AAH ?</h2>
-        <p class="text-slate-700 leading-relaxed mb-4">
-          L’AAH est une allocation dite <strong>différentielle</strong> : le montant versé correspond à une différence entre un plafond et vos ressources
-          (revenus professionnels, pensions, allocations, ressources N-2 selon les situations), après application d’abattements.
-        </p>
-
-        <h2 class="text-lg font-bold text-[#0063B1] mb-2">Accéder au simulateur</h2>
-        <p class="text-slate-700 leading-relaxed">
-          Activez JavaScript pour utiliser le simulateur interactif. Sinon, consultez le guide “En savoir plus”.
-        </p>
-
-        <noscript>
-          <p class="mt-4 text-sm text-red-600 font-bold">
-            JavaScript est désactivé : le simulateur ne peut pas s’afficher. Activez JavaScript pour faire une estimation.
-          </p>
-        </noscript>
-      </div>
-    </div>
 <!-- FOOTER -->
 <footer class="bg-slate-100 border-t border-slate-200 py-8 mt-10">
     <div class="max-w-5xl mx-auto px-4 text-center">
@@ -272,30 +255,24 @@
         }
 
         // VIEWS
-let lastView = state.view;
+        function render() {
+            const container = document.getElementById('app-content');
+            if (!container) return;
 
-function render() {
-  const container = document.getElementById('app-content');
-  if (!container) return;
+            // On rend d'abord le contenu dynamique
+            if (state.view === 'info') {
+                container.innerHTML = renderInfo();
+            } else {
+                container.innerHTML = renderSimulator();
+                attachEvents();
+            }
 
-  const viewChanged = (state.view !== lastView);
-  lastView = state.view;
+            // ✅ Ensuite seulement, on masque le fallback
+            const staticBlock = document.getElementById('static-editorial');
+            if (staticBlock) staticBlock.style.display = 'none';
 
-  if (state.view === 'info') {
-    container.innerHTML = renderInfo();
-  } else {
-    container.innerHTML = renderSimulator();
-    attachEvents();
-  }
-  const staticBlock = document.getElementById('static-editorial');
-    if (staticBlock) staticBlock.style.display = 'none';
-
-  const staticBlock = document.getElementById('static-editorial');
-  if (staticBlock) staticBlock.style.display = 'none';
-
-  // ✅ Scroll uniquement si on a changé de vue (Simulateur <-> Info)
-  if (viewChanged) window.scrollTo({ top: 0, behavior: "smooth" });
-}
+            window.scrollTo(0, 0);
+        }
 
         function renderInfo() {
             return `
@@ -443,49 +420,37 @@ function renderEditorialBottom() {
   </section>
   `;
 }
-function renderSimulator() {
-  if (state.result) return renderResult();
-  let progress = (state.step / 5) * 100;
-
-  return `
-    <div class="py-6 md:py-10 animate-fade-in">
-
-      <!-- ton titre + simulateur -->
-      <div class="text-center mb-6 md:mb-10 px-4 intro-section">
-        <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-2 intro-title uppercase">
-          Estimez votre AAH ${CURRENT_YEAR}
-        </h1>
-        <div class="text-slate-600 max-w-xl mx-auto intro-text">
-          <p class="mb-1">Simulation précise en 5 étapes basée sur les derniers barèmes.</p>
-          <p class="text-xs opacity-75">Simulateur d’Allocation aux Adultes Handicapés ${CURRENT_YEAR}</p>
-        </div>
-      </div>
-
-      <div class="max-w-2xl mx-auto px-4">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div class="h-2 bg-slate-100">
-            <div class="h-full bg-[#0063B1] transition-all duration-500" style="width: ${progress}%"></div>
-          </div>
-          <div class="p-6 md:p-10 step-card">
-            ${renderStep()}
-            <div class="flex gap-4 mt-8 pt-6 border-t border-slate-100">
-              ${state.step > 1 ? `<button onclick="prevStep()" class="flex-1 bg-slate-100 text-slate-500 font-bold py-4 rounded-2xl hover:bg-slate-200">Précédent</button>` : ''}
-              ${state.step < 5 ?
-                `<button onclick="nextStep()" class="flex-1 bg-[#0063B1] text-white font-bold py-4 rounded-2xl hover:bg-blue-700 shadow-lg">Suivant</button>` :
-                `<button onclick="finish()" class="flex-1 bg-[#00205B] text-white font-bold py-4 rounded-2xl hover:bg-slate-800 shadow-xl">Calculer mon AAH</button>`
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ✅ ICI le gros texte sous le simulateur -->
-      ${renderEditorialTop()}
-      ${renderEditorialBottom()}
-
-    </div>
-  `;
-}
+        function renderSimulator() {
+            if (state.result) return renderResult();
+            let progress = (state.step / 5) * 100;
+            return `
+            <div class="py-6 md:py-10 animate-fade-in">
+            ${renderEditorialTop()}
+                <div class="text-center mb-6 md:mb-10 px-4 intro-section">
+                    <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-2 intro-title uppercase">Estimez votre AAH ${CURRENT_YEAR}</h1>
+                    <div class="text-slate-600 max-w-xl mx-auto intro-text">
+                        <p class="mb-1">Simulation précise en 5 étapes basée sur les derniers barèmes.</p>
+                        <p class="text-xs opacity-75">Simulateur d’Allocation aux Adultes Handicapés ${CURRENT_YEAR}</p>
+                    </div>
+                </div>
+                <div class="max-w-2xl mx-auto px-4">
+                    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                        <div class="h-2 bg-slate-100"><div class="h-full bg-[#0063B1] transition-all duration-500" style="width: ${progress}%"></div></div>
+                        <div class="p-6 md:p-10 step-card">
+                            ${renderStep()}
+                            <div class="flex gap-4 mt-8 pt-6 border-t border-slate-100">
+                                ${state.step > 1 ? `<button onclick="prevStep()" class="flex-1 bg-slate-100 text-slate-500 font-bold py-4 rounded-2xl hover:bg-slate-200">Précédent</button>` : ''}
+                                ${state.step < 5 ? 
+                                    `<button onclick="nextStep()" class="flex-1 bg-[#0063B1] text-white font-bold py-4 rounded-2xl hover:bg-blue-700 shadow-lg">Suivant</button>` : 
+                                    `<button onclick="finish()" class="flex-1 bg-[#00205B] text-white font-bold py-4 rounded-2xl hover:bg-slate-800 shadow-xl">Calculer mon AAH</button>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 ${renderEditorialBottom()}
+            </div>`;
+        }
 
         function renderStep() {
             switch(state.step) {
