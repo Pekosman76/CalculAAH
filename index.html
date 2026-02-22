@@ -773,22 +773,6 @@ function renderEditorialBottom() {
         render();
     </script>
 
-
-
-    <!-- Bandeau cookies (localStorage, sans librairie externe) -->
-    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Gestion des cookies">
-      <div class="cookie-banner__inner">
-        <p class="cookie-banner__text">
-          Ce site utilise des cookies à des fins de mesure d’audience et de publicité (Google AdSense). Vous pouvez accepter ou refuser.
-          <a href="/politique-confidentialite.html" class="underline text-[#0063B1]">Voir la politique de confidentialité</a>
-        </p>
-        <div class="cookie-banner__actions">
-          <button id="cookie-accept" class="cookie-btn cookie-btn--accept" type="button">Accepter</button>
-          <button id="cookie-decline" class="cookie-btn cookie-btn--decline" type="button">Refuser</button>
-        </div>
-      </div>
-    </div>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -803,32 +787,5 @@ function renderEditorialBottom() {
   ]
 }
 </script>
-
-<script>
-  // Gestion simple du consentement cookies via localStorage
-  (function () {
-    const key = 'cookieConsent';
-    const banner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('cookie-accept');
-    const declineBtn = document.getElementById('cookie-decline');
-    if (!banner || !acceptBtn || !declineBtn) return;
-
-    const savedConsent = localStorage.getItem(key);
-    if (savedConsent !== 'true' && savedConsent !== 'false') {
-      banner.style.display = 'block';
-    }
-
-    acceptBtn.addEventListener('click', function () {
-      localStorage.setItem(key, 'true');
-      banner.style.display = 'none';
-    });
-
-    declineBtn.addEventListener('click', function () {
-      localStorage.setItem(key, 'false');
-      banner.style.display = 'none';
-    });
-  })();
-</script>
-
 </body>
 </html>
