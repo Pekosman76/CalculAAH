@@ -787,5 +787,47 @@ function renderEditorialBottom() {
   ]
 }
 </script>
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Préférences cookies">
+  <div class="cookie-banner__inner">
+    <p class="cookie-banner__text">
+      Ce site utilise des cookies pour améliorer votre expérience et mesurer l'audience.
+    </p>
+    <div class="cookie-banner__actions">
+      <button type="button" class="cookie-btn cookie-btn--accept" id="cookie-accept">Accepter</button>
+      <button type="button" class="cookie-btn cookie-btn--decline" id="cookie-decline">Refuser</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const STORAGE_KEY = 'cookieConsent';
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const declineBtn = document.getElementById('cookie-decline');
+
+    if (!banner || !acceptBtn || !declineBtn) return;
+
+    const consent = localStorage.getItem(STORAGE_KEY);
+
+    if (consent !== 'accepted' && consent !== 'declined') {
+      banner.style.display = 'block';
+    }
+
+    function saveConsent(value) {
+      localStorage.setItem(STORAGE_KEY, value);
+      banner.style.display = 'none';
+    }
+
+    acceptBtn.addEventListener('click', function () {
+      saveConsent('accepted');
+    });
+
+    declineBtn.addEventListener('click', function () {
+      saveConsent('declined');
+    });
+  })();
+</script>
 </body>
 </html>
