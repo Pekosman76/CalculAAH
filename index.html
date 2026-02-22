@@ -9,8 +9,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
     <link rel="manifest" href="/site.webmanifest?v=3">
-    <title id="page-title">Simulateur AAH - Calcul Complet</title>
-    <meta name="description" content="Simulateur AAH : estimez votre Allocation aux Adultes Handicapés en quelques étapes. Guide complet (conditions, ressources, cumul, démarches MDPH) et outil gratuit d'estimation." />
+    <title id="page-title">Simulateur AAH 2026 : estimation rapide + guide complet (CAF/MSA)</title>
+    <meta name="description" content="Simulateur AAH 2026 gratuit : estimez votre AAH en quelques minutes et consultez un guide complet sur l’AAH différentielle, le cumul AAH et salaire, l’abattement et les démarches CAF/MDPH." />
     <link rel="canonical" href="https://calcul-aah.fr/" />
     <meta name="robots" content="index, follow" />
     
@@ -153,9 +153,9 @@
 
     <div class="flex justify-center gap-6 text-[10px] text-[#0063B1] font-bold mt-6">
     <a href="/a-propos.html" class="hover:underline">À propos</a>
-    <a href="https://www.service-public.fr" target="_blank">Service-Public</a>
-    <a href="https://www.caf.fr" target="_blank">Caf</a>
-    <a href="https://www.msa.fr" target="_blank">MSA</a>
+    <a href="/mentions-legales.html" class="hover:underline">Mentions légales</a>
+    <a href="/politique-confidentialite.html" class="hover:underline">Politique de confidentialité</a>
+    <a href="/contact.html" class="hover:underline">Contact</a>
     </div>
 
     </div>
@@ -331,40 +331,12 @@
         }
         function renderEditorialTop() {
   return `
-  <section class="max-w-3xl mx-auto px-4 mb-8">
-    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
-      <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
-        AAH ${CURRENT_YEAR} : guide simple + simulateur gratuit
-      </h2>
-
-      <p class="text-slate-700 leading-relaxed mb-4">
-        Ce site propose un <strong>outil d’estimation</strong> de l’Allocation aux Adultes Handicapés (AAH) basé sur les barèmes de référence.
-        L’AAH est une aide financière destinée à garantir un revenu minimum aux personnes en situation de handicap.
-        <strong>Seule la CAF ou la MSA</strong> peut valider définitivement vos droits.
-      </p>
-
-      <h3 class="text-lg font-bold text-[#0063B1] mb-2">Comment est calculée l’AAH ?</h3>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        L’AAH est une allocation dite <strong>différentielle</strong> : le montant versé correspond à une différence entre un plafond (montant maximal)
-        et vos ressources (revenus professionnels, pensions, allocations, ressources N-2 selon les situations), après application d’abattements.
-        Travailler peut réduire l’AAH, mais ne l’annule pas forcément.
-      </p>
-      <p class="text-slate-600 text-sm italic mb-4">
-      Ce site est un outil indépendant d’information et de simulation. 
-      Il n’est affilié à aucun organisme officiel et a pour seul objectif 
-      d’aider à comprendre les règles générales de l’AAH à titre indicatif.
-    </p>
-
-      <h3 class="text-lg font-bold text-[#0063B1] mb-2">Ce que fait ce simulateur</h3>
-      <ul class="list-disc pl-5 space-y-1 text-slate-700">
-        <li>Estimation en quelques étapes avec conversion des ressources annuelles N-2 en équivalent mensuel.</li>
-        <li>Prise en compte d’abattements sur revenus d’activité (selon tranches).</li>
-        <li>Cas particuliers : hospitalisation/incarcération longue.</li>
-      </ul>
-
-      <p class="text-xs text-slate-500 mt-4 italic">
-        Important : ce simulateur donne une estimation indicative. Les règles et votre situation peuvent nécessiter une étude individuelle.
-      </p>
+  <section class="max-w-3xl mx-auto px-4 mb-6" id="simulateur-top"> 
+    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8"> 
+      <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-3">Simulateur AAH ${CURRENT_YEAR} : estimation rapide</h1>
+      <p class="text-slate-700 leading-relaxed mb-2">Estimez votre AAH en quelques étapes avec un calcul indicatif pensé pour la France (CAF/MSA).</p>
+      <p class="text-slate-700 leading-relaxed mb-2">Le résultat est une aide à la compréhension : il ne remplace pas une décision officielle.</p>
+      <p class="text-slate-500 text-sm">Astuce : préparez vos revenus d’activité, pensions et ressources annuelles pour une estimation plus proche de votre situation.</p>
     </div>
   </section>
   `;
@@ -372,47 +344,144 @@
 
 function renderEditorialBottom() {
   return `
-  <section class="max-w-3xl mx-auto px-4 mt-10">
-    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
-      <h2 class="text-xl md:text-2xl font-black text-[#00205B] mb-4">
-        Comprendre votre résultat
-      </h2>
+  <section class="max-w-4xl mx-auto px-4 mt-10" id="guide-aah-complet">
+    <div class="bg-white rounded-3xl shadow-lg p-6 md:p-10 space-y-8">
+      <section id="resume-rapide">
+        <h2 class="text-2xl md:text-3xl font-black text-[#00205B] mb-3">Résumé rapide</h2>
+        <p class="text-slate-700 leading-relaxed">L’AAH (Allocation aux Adultes Handicapés) est une aide différentielle : la CAF ou la MSA compare un montant maximal à vos ressources retenues, puis verse la différence éventuelle. Il est possible d’être éligible même en travaillant, selon le niveau de revenus, les abattements appliqués et la période prise en compte. Ce simulateur sert à anticiper un ordre de grandeur, à tester des scénarios (temps partiel, variation de salaire, pensions, ressources N-2), et à mieux préparer votre dossier. Votre droit réel dépend toujours de la décision administrative (MDPH/CDAPH pour le handicap, CAF/MSA pour le paiement), des justificatifs transmis et des règles en vigueur à la date d’instruction.</p>
+      </section>
 
-      <div class="space-y-4 text-slate-700 leading-relaxed">
-        <p>
-          Si votre estimation est faible (ou à 0 €), cela signifie généralement que vos ressources prises en compte
-          approchent ou dépassent le plafond de l’AAH. Dans d’autres cas, un abattement peut limiter l’impact de certains revenus.
-        </p>
-
-        <h3 class="text-lg font-bold text-[#0063B1]">Questions fréquentes</h3>
-        <div class="space-y-3">
-          <details class="bg-slate-50 rounded-2xl p-4">
-            <summary class="font-bold cursor-pointer">Puis-je travailler tout en touchant l’AAH ?</summary>
-            <p class="mt-2 text-sm">
-              Oui. Vos revenus peuvent réduire l’AAH, mais l’allocation peut rester partielle selon votre situation et les abattements applicables.
-            </p>
-          </details>
-
-          <details class="bg-slate-50 rounded-2xl p-4">
-            <summary class="font-bold cursor-pointer">Pourquoi des ressources N-2 sont demandées ?</summary>
-            <p class="mt-2 text-sm">
-              Certaines évaluations s’appuient sur des ressources antérieures (année N-2) selon votre dossier et les informations disponibles.
-              Le simulateur convertit ces montants annuels en équivalent mensuel pour estimer l’impact.
-            </p>
-          </details>
-
-          <details class="bg-slate-50 rounded-2xl p-4">
-            <summary class="font-bold cursor-pointer">Qui décide de l’attribution ?</summary>
-            <p class="mt-2 text-sm">
-              La MDPH (via la CDAPH) statue sur le taux d’incapacité et la CAF/MSA calcule ensuite les droits et le montant.
-            </p>
-          </details>
+      <nav aria-label="Sommaire" class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+        <p class="font-bold text-slate-800 mb-2">Sommaire</p>
+        <div class="flex flex-wrap gap-2 text-sm">
+          <a href="#comprendre-aah" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">Comprendre l’AAH</a>
+          <a href="#aah-salaire" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">AAH et salaire</a>
+          <a href="#abattement" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">Abattement</a>
+          <a href="#aah-differentielle" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">AAH différentielle</a>
+          <a href="#exemples" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">Exemples</a>
+          <a href="#faq" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">FAQ</a>
+          <a href="#sources" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">Sources & mise à jour</a>
+          <a href="#contact-section" class="px-3 py-1 rounded-full bg-blue-50 text-[#0063B1]">Contact</a>
         </div>
+      </nav>
 
-        <h3 class="text-lg font-bold text-[#0063B1]">Sources utiles</h3>
-        <p class="text-sm">
-          Pour vérifier les règles officielles et démarches : Service-Public, CAF, MSA, et votre MDPH.
-        </p>
+      <section id="comprendre-aah" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">Comprendre l’AAH</h2>
+        <p>L’AAH vise à garantir un revenu minimal aux personnes en situation de handicap lorsque la capacité d’accès à l’emploi est fortement réduite ou que les revenus restent faibles. En pratique, deux volets se complètent : l’évaluation médicale et sociale du handicap (MDPH/CDAPH), puis l’étude des ressources et du paiement (CAF ou MSA). Pour de nombreuses personnes, la complexité vient du mélange entre critères médicaux, périodes de référence et mécanismes de plafonds.</p>
+        <p>Dans une logique pédagogique, il est utile de retenir que la question n’est pas seulement « ai-je un handicap reconnu ? », mais aussi « quelles ressources sont retenues, sur quelle période, et avec quels abattements ? ». Le même foyer peut donc observer un montant qui évolue d’un trimestre à l’autre, notamment en cas de changement d’activité, de prime ponctuelle, ou de variation de pension. Cette dynamique explique pourquoi un simulateur doit être utilisé comme boussole, pas comme décision finale.</p>
+        <p>Pour améliorer la fiabilité de votre estimation, rassemblez vos informations avant de simuler : revenus d’activité récents, éventuelles pensions, aides perçues, et éléments N-2 quand ils sont demandés. Une saisie approximative (par exemple oublier une prime annuelle ou renseigner un net mensuel au lieu d’un annuel) peut fortement changer le résultat. Plus vos données d’entrée sont cohérentes, plus la simulation devient utile pour anticiper.</p>
+      </section>
+
+      <section id="aah-salaire" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">AAH et salaire : peut-on cumuler ?</h2>
+        <p>Oui, il est possible de cumuler AAH et revenus d’activité. En France, l’AAH est dite « différentielle » : le versement dépend d’un écart entre un montant de référence et les ressources retenues. Travailler n’annule donc pas automatiquement le droit. Ce point est essentiel pour éviter une idée reçue fréquente selon laquelle emploi = perte immédiate de l’AAH.</p>
+        <p>Dans la réalité, le cumul fonctionne surtout comme un ajustement. Quand le salaire augmente, l’AAH baisse en général, mais peut rester partielle. Quand le salaire diminue ou devient irrégulier, l’AAH peut remonter. Cette logique permet d’amortir certaines variations de revenus, même si l’effet exact dépend des règles appliquées par votre caisse et de la période de référence utilisée pour le calcul.</p>
+        <p>Concrètement, vous avez intérêt à simuler plusieurs scénarios : mois « normal », mois avec prime, passage à temps partiel, arrêt de mission, etc. Ce travail permet d’anticiper la trésorerie et d’éviter les surprises. Pour les travailleurs avec revenus fluctuants (intérim, contrats courts, activité indépendante), la prudence est encore plus importante : un simple mois atypique peut modifier votre projection mensuelle.</p>
+      </section>
+
+      <section id="aah-differentielle" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">AAH différentielle : définition, principes et utilité</h2>
+        <p>L’AAH différentielle signifie que l’allocation n’est pas forcément « tout ou rien ». Le montant payé correspond à une différence entre un plafond théorique et des ressources retenues après règles d’abattement. Cela répond à une logique de soutien progressif : accompagner les personnes dont les revenus restent insuffisants pour atteindre un niveau minimal.</p>
+        <p>Pourquoi c’est important ? Parce qu’une personne peut rester éligible même avec un salaire, y compris en milieu ordinaire. Tant que les ressources retenues n’épuisent pas complètement le droit, un montant partiel peut subsister. Ce mécanisme est central pour comprendre le lien entre insertion professionnelle et maintien d’une aide.</p>
+        <p>Autre conséquence : deux personnes avec le même salaire brut peuvent obtenir des montants AAH différents selon la composition de leurs ressources, la présence d’autres revenus, les périodes observées, les particularités de dossier et la manière dont les montants sont déclarés. Si votre simulation diverge d’une notification CAF/MSA, il faut d’abord vérifier les périodes et les montants réellement retenus, puis demander un détail de calcul si besoin.</p>
+      </section>
+
+      <section id="abattement" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">Abattement sur revenus d’activité (milieu ordinaire)</h2>
+        <p>L’abattement est un mécanisme clé : au lieu de retenir 100 % des revenus professionnels dans le calcul, seule une partie est prise en compte selon des règles et tranches prévues par les textes. L’objectif est de ne pas pénaliser totalement la reprise ou la poursuite d’activité. En pratique, cela peut rendre le cumul AAH + salaire plus favorable qu’une simple soustraction « euro pour euro ».</p>
+        <p>Attention toutefois : les paramètres exacts peuvent évoluer et dépendre de la réglementation en vigueur. Si vous n’êtes pas certain des taux applicables à votre situation, utilisez une formulation prudente et vérifiez vos notifications CAF/MSA. Le plus fiable reste de comparer votre simulation avec votre avis de droit pour comprendre l’écart.</p>
+        <h3 class="text-xl font-bold text-[#0063B1]">Erreurs fréquentes</h3>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Saisir un montant brut au lieu du net demandé par l’outil.</li>
+          <li>Oublier une prime annuelle et surestimer le droit mensuel.</li>
+          <li>Confondre revenus mensuels courants et ressources annuelles N-2.</li>
+          <li>Comparer la simulation à une période CAF/MSA différente.</li>
+          <li>Ne pas mettre à jour la simulation après un changement de situation.</li>
+        </ul>
+      </section>
+
+      <section id="exemples" class="space-y-4 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">Exemples chiffrés (profils réalistes)</h2>
+        <p>Les exemples ci-dessous sont pédagogiques : ils montrent des ordres de grandeur et la logique différentielle. Ils ne remplacent pas un calcul CAF/MSA.</p>
+        <article>
+          <h3 class="text-xl font-bold text-[#0063B1]">Profil 1 – Milieu ordinaire, revenu stable</h3>
+          <p>Personne seule, taux reconnu, salaire net mensuel stable de 650 €. Après prise en compte de l’abattement, la ressource retenue est inférieure au salaire réel. Le droit AAH n’est pas forcément annulé : un montant partiel peut subsister. L’enjeu ici est de vérifier la période utilisée par la caisse pour que l’estimation corresponde aux données officielles.</p>
+        </article>
+        <article>
+          <h3 class="text-xl font-bold text-[#0063B1]">Profil 2 – Temps partiel avec variation mensuelle</h3>
+          <p>Contrat à temps partiel avec revenus entre 350 € et 820 € selon les mois. Le simulateur permet de tester un mois bas, moyen et haut. Résultat attendu : une AAH plus élevée les mois faibles, plus basse les mois forts. Cette approche aide à anticiper la trésorerie et à éviter de conclure trop vite qu’il y a « perte définitive » de droit.</p>
+        </article>
+        <article>
+          <h3 class="text-xl font-bold text-[#0063B1]">Profil 3 – Prime annuelle lissée</h3>
+          <p>Salarié avec 700 € nets mensuels + prime annuelle de 1 200 €. Si la prime est ignorée, le simulateur surestime le droit. En la lissant (100 € par mois à titre de test), l’estimation devient plus prudente. C’est un cas typique où la CAF peut afficher un montant inférieur à une simulation « trop optimiste ».</p>
+        </article>
+        <article>
+          <h3 class="text-xl font-bold text-[#0063B1]">Profil 4 – Ressources N-2 et pensions</h3>
+          <p>Personne sans activité actuelle, mais avec ressources N-2 et petite pension. Le résultat peut sembler contre-intuitif si l’utilisateur se focalise uniquement sur son mois présent. D’où l’intérêt d’indiquer correctement les montants annuels demandés : la période de référence pèse fortement dans le calcul théorique.</p>
+        </article>
+        <p>Pourquoi un simulateur peut différer de la CAF ? Les différences viennent souvent des périodes retenues, des montants réellement transmis, des mises à jour en cours de dossier, ou d’ajustements administratifs non reproduits à l’identique dans un outil pédagogique.</p>
+      </section>
+
+
+      <section id="demarches" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">Démarches pratiques : MDPH, CAF/MSA, suivi dossier</h2>
+        <p>Pour de nombreux usagers, la difficulté n’est pas seulement de comprendre le principe de l’AAH, mais d’enchaîner correctement les étapes administratives. Une méthode simple consiste à séparer votre parcours en trois blocs : reconnaissance du handicap, instruction des droits, puis suivi régulier des ressources. Dans le premier bloc, le dossier MDPH sert à apprécier la situation fonctionnelle, la limitation d’activité et, selon le cas, la RSDAE. Dans le second bloc, la CAF ou la MSA applique les règles de ressources à partir des éléments disponibles. Dans le troisième bloc, vous mettez à jour votre situation pour éviter les écarts cumulés.</p>
+        <p>Le réflexe utile consiste à documenter systématiquement vos changements : reprise d’emploi, baisse du temps de travail, prime exceptionnelle, pension nouvelle, modification familiale, hospitalisation prolongée. Même si ces éléments semblent ponctuels, ils peuvent impacter le résultat mensuel sur plusieurs périodes. En cas de doute, gardez vos justificatifs classés par date (bulletins, attestations, notifications). Cette traçabilité simplifie fortement les échanges avec la caisse et permet de comprendre une régularisation.</p>
+        <p>Autre point important : l’ordre chronologique des démarches. Beaucoup d’écarts naissent d’une mise à jour tardive ou incomplète. Si votre situation évolue, il est recommandé d’actualiser rapidement les informations pertinentes auprès de l’organisme compétent. Cela limite le risque de trop-perçu ou de sous-paiement temporaire. En parallèle, une simulation à chaque changement vous aide à garder une projection réaliste de votre budget, surtout si vos revenus varient d’un mois à l’autre.</p>
+        <p>En pratique, vous pouvez adopter une routine mensuelle très simple : 1) vérifier vos revenus réellement perçus, 2) repérer les montants exceptionnels (prime, rattrapage, indemnité), 3) comparer avec votre simulation précédente, 4) noter les écarts et leurs causes. Ce suivi ne remplace pas l’administration, mais vous donne une vision claire de votre trajectoire financière. C’est particulièrement utile pour les profils en activité intermittente, temps partiel variable, ou transition professionnelle.</p>
+        <p>Enfin, si une notification vous semble incohérente, demandez un détail de calcul et comparez méthodiquement : période retenue, ressources incluses, éléments exclus, hypothèses d’abattement. Une contestation efficace repose d’abord sur des faits vérifiables (dates, montants, justificatifs), plutôt que sur une impression globale. Cette approche augmente vos chances d’obtenir une explication claire et, si nécessaire, une correction.</p>
+      </section>
+
+      <section id="checklist" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">Checklist anti-erreurs avant de valider une simulation</h2>
+        <p>Avant de cliquer sur « Calculer mon AAH », prenez 60 secondes pour vérifier les points suivants. Cette mini-checklist améliore nettement la qualité du résultat :</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Vous avez utilisé les bons montants (mensuel vs annuel) selon le champ demandé.</li>
+          <li>Les revenus d’activité incluent les éléments récurrents et les compléments habituels.</li>
+          <li>Les montants exceptionnels (prime, rappel, bonus) sont traités de manière prudente.</li>
+          <li>Les pensions et allocations sont renseignées quand elles existent réellement.</li>
+          <li>Vous avez revérifié les données de situation familiale et d’enfants à charge.</li>
+          <li>En cas de taux 50–79 %, vous avez considéré la question de la RSDAE.</li>
+          <li>Vous avez comparé le résultat avec votre dernière notification officielle disponible.</li>
+        </ul>
+        <p>Cette méthode ne garantit pas un alignement parfait avec la CAF/MSA, mais elle réduit fortement les erreurs de saisie. Si un écart persiste, notez précisément ce qui diffère : période de référence, montant d’un revenu, prise en compte d’une prime, ou statut d’un changement récent. Vous pourrez ensuite demander une clarification avec un dossier solide.</p>
+      </section>
+
+      <section id="faq" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">FAQ AAH</h2>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">1) Ce simulateur remplace-t-il une décision CAF ?</summary><p class="mt-2">Non. Il donne une estimation indicative. Seule la CAF/MSA valide officiellement le droit et le montant.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">2) Peut-on percevoir l’AAH en travaillant ?</summary><p class="mt-2">Oui, selon les ressources retenues et les règles d’abattement. Le droit peut rester partiel.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">3) Pourquoi parler de ressources N-2 ?</summary><p class="mt-2">Certaines évaluations s’appuient sur des ressources antérieures. La période applicable dépend de la réglementation et du dossier.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">4) La RSDAE est-elle toujours nécessaire ?</summary><p class="mt-2">Pour certains taux d’incapacité, la RSDAE peut être un critère déterminant. Vérifiez votre situation auprès des textes et de la MDPH.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">5) Un revenu élevé un mois supprime-t-il l’AAH définitivement ?</summary><p class="mt-2">Pas nécessairement. Le droit dépend des périodes et des ressources retenues dans le temps.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">6) Dois-je saisir mes revenus bruts ou nets ?</summary><p class="mt-2">Suivez les libellés de l’outil et vérifiez la cohérence avec vos justificatifs.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">7) Les pensions sont-elles prises en compte ?</summary><p class="mt-2">Oui, elles peuvent impacter le résultat selon leur nature et les règles applicables.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">8) Pourquoi mon estimation est différente de ma notification ?</summary><p class="mt-2">Souvent à cause des périodes de référence, d’une prime oubliée, d’un changement récent ou d’un paramètre de dossier.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">9) L’hospitalisation peut-elle modifier le montant ?</summary><p class="mt-2">Oui, selon la durée et les règles en vigueur, une réduction peut intervenir.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">10) Le simulateur fonctionne-t-il pour tous les profils ?</summary><p class="mt-2">Il couvre les cas les plus fréquents mais ne remplace pas une étude complète de dossier.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">11) Puis-je contester une décision ?</summary><p class="mt-2">Oui, des voies de recours existent. Consultez votre notification pour les délais.</p></details>
+        <details class="bg-slate-50 rounded-xl p-4"><summary class="font-bold">12) Faut-il déclarer les changements rapidement ?</summary><p class="mt-2">Oui, cela évite les régularisations ultérieures et améliore la fiabilité du calcul.</p></details>
+      </section>
+
+      <section id="sources" class="space-y-3 text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-black text-[#00205B]">Sources & mise à jour</h2>
+        <p>Références recommandées : Service-Public.fr, CAF.fr, MSA.fr et informations communiquées par votre MDPH. Les règles évoluent ; vérifiez les textes en vigueur au moment de votre demande.</p>
+        <h3 class="text-xl font-bold text-[#0063B1]">Mise à jour 2026</h3>
+        <p>Cette section est maintenue avec une logique prudente : les paramètres affichés sont à vérifier selon les textes en vigueur, circulaires et mises à jour officielles. En cas d’incertitude, l’interprétation la plus fiable reste celle de l’organisme payeur.</p>
+      </section>
+
+      <section id="disclaimer" class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-amber-900">
+        <h2 class="text-xl font-bold mb-2">Disclaimer</h2>
+        <p>Ce simulateur est indicatif et pédagogique. Il ne remplace pas la CAF, la MSA, la MDPH ou la CDAPH. Des écarts peuvent exister selon votre situation, les périodes retenues, les justificatifs et les textes applicables.</p>
+      </section>
+
+      <section id="contact-section" class="text-slate-700">
+        <h2 class="text-2xl font-black text-[#00205B] mb-2">Contact</h2>
+        <p>Besoin d’un signalement ou d’une correction éditoriale ? Écrivez-nous via la page <a href="/contact.html" class="text-[#0063B1] underline">Contact</a>.</p>
+      </section>
+
+      <div class="text-center pt-2">
+        <a href="#simulateur-aah" class="inline-block px-4 py-2 text-sm rounded-full border border-slate-300 hover:bg-slate-50">↑ Revenir au simulateur</a>
       </div>
     </div>
   </section>
@@ -431,7 +500,7 @@ function renderEditorialBottom() {
                         <p class="text-xs opacity-75">Simulateur d’Allocation aux Adultes Handicapés ${CURRENT_YEAR}</p>
                     </div>
                 </div>
-                <div class="max-w-2xl mx-auto px-4">
+                <div id="simulateur-aah" class="max-w-2xl mx-auto px-4">
                     <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
                         <div class="h-2 bg-slate-100"><div class="h-full bg-[#0063B1] transition-all duration-500" style="width: ${progress}%"></div></div>
                         <div class="p-6 md:p-10 step-card">
@@ -648,5 +717,20 @@ function renderEditorialBottom() {
 
         render();
     </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Ce simulateur remplace-t-il une décision CAF ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le simulateur fournit une estimation indicative. La CAF ou la MSA valide officiellement vos droits."}},
+    {"@type":"Question","name":"Peut-on percevoir l’AAH en travaillant ?","acceptedAnswer":{"@type":"Answer","text":"Oui, selon vos ressources retenues et les règles d’abattement applicables."}},
+    {"@type":"Question","name":"Pourquoi la période N-2 peut-elle être demandée ?","acceptedAnswer":{"@type":"Answer","text":"Certaines évaluations utilisent des ressources antérieures selon les règles en vigueur et le dossier."}},
+    {"@type":"Question","name":"Pourquoi mon résultat diffère-t-il de la CAF ?","acceptedAnswer":{"@type":"Answer","text":"Les écarts proviennent souvent des périodes de référence, des montants déclarés, de primes ou de mises à jour de dossier."}},
+    {"@type":"Question","name":"L’AAH est-elle une allocation différentielle ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Le montant versé correspond en général à une différence entre un montant de référence et les ressources retenues."}},
+    {"@type":"Question","name":"Que faire en cas de désaccord avec une décision ?","acceptedAnswer":{"@type":"Answer","text":"Consultez votre notification pour les voies de recours et les délais applicables."}}
+  ]
+}
+</script>
 </body>
 </html>
