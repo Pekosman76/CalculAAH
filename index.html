@@ -39,6 +39,61 @@
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    
+
+        /* Bandeau cookies léger et responsive */
+        .cookie-banner {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 60;
+            padding: 12px;
+            display: none;
+        }
+        .cookie-banner__inner {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
+            padding: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .cookie-banner__text {
+            margin: 0;
+            color: #334155;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            flex: 1 1 320px;
+        }
+        .cookie-banner__actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .cookie-btn {
+            border: 0;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .cookie-btn--accept { background: #0063B1; color: #fff; }
+        .cookie-btn--decline { background: #e2e8f0; color: #0f172a; }
+
+        @media (max-width: 600px) {
+            .cookie-banner { padding: 8px; }
+            .cookie-banner__inner { border-radius: 12px; }
+            .cookie-btn { flex: 1 1 auto; }
+        }
+
     </style>
 <script type="importmap">
 {
