@@ -57,52 +57,75 @@
 }
 
 .site-footer {
-  background: #f5f7fa;
-  border-top: 1px solid #e3e6ea;
   margin-top: 60px;
+  background: #f7f9fc;
+  border-top: 1px solid #e5eaf0;
+  color: #334155;
 }
 
-.footer-container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 30px 20px;
-  font-size: 14px;
-  line-height: 1.6;
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 30px;
 }
 
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
+.footer-content {
+  max-width: 860px;
 }
 
-.footer-column h4 {
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: #222;
+.footer-content p {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #475569;
+}
+
+.footer-content p:last-child {
+  margin-bottom: 0;
+}
+
+.footer-label {
   font-weight: 600;
+  color: #1e293b;
 }
 
-.footer-column p {
-  font-size: 13px;
-  color: #555;
-  margin: 0;
+.footer-content a {
+  color: #0f4d85;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 }
 
-.footer-column p + p {
-  margin-top: 10px;
+.footer-content a:hover,
+.footer-content a:focus-visible {
+  color: #0b3a66;
 }
 
-.privacy-link a {
-  color: #0c4a6e;
-  font-weight: 600;
+.footer-nav {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #dbe3ec;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
 }
 
-.footer-bottom {
-  text-align: center;
-  margin-top: 25px;
-  font-size: 12px;
-  color: #777;
+.footer-nav a {
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: #0f4d85;
+  text-decoration: underline;
+}
+
+.footer-separator {
+  color: #94a3b8;
 }
 
 @media (max-width: 800px) {
@@ -113,7 +136,21 @@
 }
 
 @media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
+  .footer-inner {
+    padding: 32px 18px 24px;
+  }
+
+  .footer-content p {
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+  }
+
+  .footer-nav {
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .footer-nav a {
+    font-size: 0.88rem;
   }
 }
