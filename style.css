@@ -382,3 +382,71 @@
     padding: 42px;
   }
 }
+
+/* Templates éditoriaux : les grands textes du portail restent dans le conteneur principal, avec titres bleus et cartes lisibles. */
+.portal-container {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.blog-grid .blog-card {
+  grid-column: 1 / -1;
+}
+
+.blog-card {
+  color: #334155;
+  box-shadow: 0 16px 38px rgba(0, 32, 91, 0.08);
+}
+
+.blog-card h2,
+.blog-card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8f4ff;
+  color: #00205b;
+  font-weight: 900;
+}
+
+.blog-card h2 {
+  font-size: clamp(1.45rem, 4vw, 2rem);
+}
+
+.blog-card h3 {
+  font-size: clamp(1.22rem, 3vw, 1.55rem);
+}
+
+.blog-card p,
+.blog-card li {
+  color: #334155;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.blog-card p {
+  margin: 0 0 16px;
+}
+
+.blog-card ul,
+.blog-card ol {
+  margin: 0 0 22px 1.25rem;
+  padding: 0;
+}
+
+.blog-card li {
+  margin-bottom: 8px;
+}
+
+.blog-card p:last-child,
+.blog-card li:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
