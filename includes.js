@@ -28,7 +28,7 @@ function currentRoute() {
   const parts = window.location.pathname.split('/').filter(Boolean);
   if (parts[0] === 'blog') return 'blog';
   const last = parts.pop() || '';
-  if ((last === 'guide-2026' || last === 'guide-2026.html') && window.location.hash === '#mini-blog') return 'mini-blog';
+  if ((last === 'guide-2026' || last === 'guide-2026.html') && window.location.hash === '#articles') return 'mini-blog';
   return routeAliases[last] || 'home';
 }
 function closeDisclosure(disclosure) {
