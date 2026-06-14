@@ -1,29 +1,32 @@
 <header class="site-header">
-  <div class="site-header__container">
-    <a class="brand" href="/" aria-label="Calcul AAH - accueil">Calcul AAH</a>
-    <div class="main-nav-scroll">
-      <nav class="main-nav" aria-label="Navigation principale">
-        <a href="/" data-active-match="index.html">Simulateur</a>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown__button" type="button" aria-haspopup="true" aria-expanded="false">
-            Comprendre l’AAH
-            <span class="nav-dropdown__chevron" aria-hidden="true">▾</span>
-          </button>
-          <div class="nav-dropdown__menu" role="menu">
-            <a href="/conditions-eligibilite" data-active-match="conditions-eligibilite-aah.html" role="menuitem">Conditions</a>
-            <a href="/montant-2026" data-active-match="montant-aah-2026.html" role="menuitem">Montant 2026</a>
-            <a href="/guide-2026" data-active-match="guide-2026.html" role="menuitem">Guide 2026</a>
-            <a href="/guide-2026#mini-blog" data-active-match="guide-2026.html#mini-blog" role="menuitem">Mini-blog pratique</a>
-            <a href="/aah-travail" data-active-match="aah-et-travail.html" role="menuitem">AAH et travail</a>
+  <div class="site-header__inner">
+    <div class="site-header__brand">
+      <a href="/" class="site-header__brand-link" aria-label="Calcul AAH, retour à l’accueil">Calcul AAH</a>
+    </div>
+    <div class="site-header__nav-wrap">
+      <nav class="site-header__primary" aria-label="Navigation principale">
+        <a class="site-header__link" href="/" data-route="home">Simulateur</a>
+        <div class="site-header__disclosure">
+          <button class="site-header__disclosure-button" type="button" aria-expanded="false" aria-controls="nav-comprendre-aah">Comprendre l’AAH <span aria-hidden="true">▾</span></button>
+          <div id="nav-comprendre-aah" class="site-header__submenu" hidden>
+            <a class="site-header__submenu-link" href="/conditions" data-route="conditions">Conditions</a>
+            <a class="site-header__submenu-link" href="/montant-2026" data-route="montant-2026">Montant 2026</a>
+            <a class="site-header__submenu-link" href="/guide-2026" data-route="guide-2026">Guide 2026</a>
+            <a class="site-header__submenu-link" href="/guide-2026#mini-blog" data-route="mini-blog">Mini-blog</a>
+            <a class="site-header__submenu-link" href="/aah-travail" data-route="aah-travail">AAH et travail</a>
           </div>
         </div>
-        <a href="/demarches" data-active-match="demarches-mdph-caf.html">Démarches</a>
-        <a href="/faq" data-active-match="faq-aah.html">FAQ</a>
-        <a href="/contact" data-active-match="contact.html">Contact</a>
-        <a class="nav-secondary" href="/a-propos" data-active-match="a-propos.html">À propos</a>
-        <a class="nav-secondary" href="/mentions-legales" data-active-match="mentions-legales.html">Mentions légales</a>
-        <a class="nav-secondary" href="/politique-confidentialite" data-active-match="politique-confidentialite.html">Confidentialité</a>
+        <a class="site-header__link" href="/demarches" data-route="demarches">Démarches</a>
+        <a class="site-header__link" href="/faq" data-route="faq">FAQ</a>
+        <a class="site-header__link" href="/a-propos" data-route="a-propos">À propos</a>
+        <a class="site-header__link" href="/contact" data-route="contact">Contact</a>
+      </nav>
+      <nav class="site-header__utility" aria-label="Navigation secondaire">
+        <a class="site-header__link" href="/mentions-legales" data-route="mentions-legales">Mentions légales</a>
+        <a class="site-header__link" href="/politique-confidentialite" data-route="politique-confidentialite">Confidentialité</a>
       </nav>
     </div>
+    <button class="site-header__mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
   </div>
+  <div id="mobile-nav" class="site-header__mobile-panel" hidden></div>
 </header>
