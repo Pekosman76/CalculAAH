@@ -1,19 +1,28 @@
 <header class="site-header">
   <div class="site-header__container">
-    <a class="brand" href="index.html" aria-label="Calcul AAH - accueil">Calcul AAH</a>
+    <a class="brand" href="/" aria-label="Calcul AAH - accueil">Calcul AAH</a>
     <div class="main-nav-scroll">
       <nav class="main-nav" aria-label="Navigation principale">
-        <a href="index.html">Simulateur</a>
-        <a href="guide-2026.html">Guide 2026</a>
-        <a href="conditions-eligibilite-aah.html">Conditions</a>
-        <a href="montant-aah-2026.html">Montant 2026</a>
-        <a href="aah-et-travail.html">AAH et travail</a>
-        <a href="demarches-mdph-caf.html">Démarches</a>
-        <a href="faq-aah.html">FAQ</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="contact.html">Contact</a>
-        <a href="mentions-legales.html">Mentions légales</a>
-        <a href="politique-confidentialite.html">Confidentialité</a>
+        <a href="/" data-active-match="index.html">Simulateur</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown__button" type="button" aria-haspopup="true" aria-expanded="false">
+            Comprendre l’AAH
+            <span class="nav-dropdown__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="nav-dropdown__menu" role="menu">
+            <a href="/conditions-eligibilite" data-active-match="conditions-eligibilite-aah.html" role="menuitem">Conditions</a>
+            <a href="/montant-2026" data-active-match="montant-aah-2026.html" role="menuitem">Montant 2026</a>
+            <a href="/guide-2026" data-active-match="guide-2026.html" role="menuitem">Guide 2026</a>
+            <a href="/guide-2026#mini-blog" data-active-match="guide-2026.html#mini-blog" role="menuitem">Mini-blog pratique</a>
+            <a href="/aah-travail" data-active-match="aah-et-travail.html" role="menuitem">AAH et travail</a>
+          </div>
+        </div>
+        <a href="/demarches" data-active-match="demarches-mdph-caf.html">Démarches</a>
+        <a href="/faq" data-active-match="faq-aah.html">FAQ</a>
+        <a href="/contact" data-active-match="contact.html">Contact</a>
+        <a class="nav-secondary" href="/a-propos" data-active-match="a-propos.html">À propos</a>
+        <a class="nav-secondary" href="/mentions-legales" data-active-match="mentions-legales.html">Mentions légales</a>
+        <a class="nav-secondary" href="/politique-confidentialite" data-active-match="politique-confidentialite.html">Confidentialité</a>
       </nav>
     </div>
   </div>

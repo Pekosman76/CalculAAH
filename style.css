@@ -11,7 +11,7 @@
 
 .site-header {
   width: 100%;
-  background: #00205b;
+  background: #062b66;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -20,25 +20,24 @@
 
 .site-header__container {
   width: 100%;
-  max-width: 1050px;
-  min-height: 64px;
+  max-width: 1320px;
+  min-height: 76px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
   display: flex;
-  gap: 18px;
   align-items: center;
+  gap: 40px;
 }
 
 .brand {
   color: #fff;
   text-decoration: none;
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   line-height: 1;
   display: inline-flex;
   align-items: center;
-  flex: 0 0 auto;
-  min-width: max-content;
+  flex-shrink: 0;
   white-space: nowrap;
 }
 
@@ -49,47 +48,170 @@
 
 .main-nav {
   display: flex;
-  gap: 6px;
-  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
+  gap: 22px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
-.main-nav a {
+.main-nav a,
+.nav-dropdown__button {
   color: #e2e8f0;
   text-decoration: none;
-  font-size: 0.78rem;
+  font: inherit;
+  font-size: 0.9rem;
   line-height: 1.2;
-  padding: 7px 8px;
+  padding: 10px 0;
+  border: 0;
   border-radius: 999px;
+  background: transparent;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 6px;
   flex: 0 0 auto;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .main-nav a:visited,
 .main-nav a:hover,
 .main-nav a:focus-visible,
-.main-nav a:active {
+.main-nav a:active,
+.nav-dropdown__button:hover,
+.nav-dropdown__button:focus-visible,
+.nav-dropdown:hover .nav-dropdown__button {
   color: #ffffff;
 }
 
-.main-nav a:focus-visible {
+.main-nav a:focus-visible,
+.nav-dropdown__button:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 
 .main-nav a:hover,
-.main-nav a.is-active {
+.main-nav a.is-active,
+.nav-dropdown.is-active > .nav-dropdown__button,
+.nav-dropdown__button[aria-expanded="true"] {
   color: #ffffff;
-  background: #0063b1;
+  background: #0b84d8;
   text-decoration: none;
 }
 
-.main-nav a.is-active {
+.main-nav a.is-active,
+.nav-dropdown.is-active > .nav-dropdown__button,
+.nav-dropdown__button[aria-expanded="true"] {
   font-weight: 600;
+  padding: 10px 14px;
 }
+
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.nav-dropdown__chevron {
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.nav-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  min-width: 230px;
+  padding: 10px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.2);
+  display: grid;
+  gap: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown__menu,
+.nav-dropdown:focus-within .nav-dropdown__menu,
+.nav-dropdown.is-open .nav-dropdown__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown__menu a,
+.nav-dropdown__menu a:visited {
+  width: 100%;
+  justify-content: flex-start;
+  color: #0f172a;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.nav-dropdown__menu a:hover,
+.nav-dropdown__menu a:focus-visible,
+.nav-dropdown__menu a.is-active {
+  color: #ffffff;
+  background: #0b84d8;
+}
+
+@media (max-width: 1180px) {
+  .site-header__container { gap: 30px; }
+  .main-nav { gap: 16px; }
+  .main-nav a,
+  .nav-dropdown__button { font-size: 0.84rem; }
+  .main-nav a.is-active,
+  .nav-dropdown.is-active > .nav-dropdown__button,
+  .nav-dropdown__button[aria-expanded="true"] { padding: 9px 12px; }
+}
+
+@media (max-width: 800px) {
+  .site-header__container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    min-height: auto;
+    padding: 12px 16px;
+  }
+
+  .main-nav-scroll {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .main-nav {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .main-nav a,
+  .nav-dropdown__button {
+    font-size: 0.88rem;
+    padding: 8px 10px;
+  }
+
+  .nav-dropdown {
+    position: static;
+  }
+
+  .nav-dropdown__menu {
+    left: 16px;
+    right: 16px;
+    top: auto;
+    min-width: 0;
+    margin-top: 42px;
+  }
+
+  .nav-secondary {
+    display: none !important;
+  }
+}
+
 .site-footer {
   margin-top: 60px;
   background: #f7f9fc;
