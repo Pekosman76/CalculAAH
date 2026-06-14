@@ -1,0 +1,1 @@
+export const articleSlugs = ['declaration-ressources-trimestrielles-aah','aah-et-travail-cumul-milieu-ordinaire','premiere-demande-aah-dossier-mdph','refus-aah-recours-mdph','aah-retraite-pension-invalidite','aah-logement-mva-aides-connexes'];
