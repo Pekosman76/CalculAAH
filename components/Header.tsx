@@ -1,49 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface HeaderProps {
   onNav?: (view: 'simulator' | 'info') => void;
   currentView?: 'simulator' | 'info';
 }
 
-const navItems = [
-  { href: 'index.html', label: 'Simulateur', view: 'simulator' as const },
-  { href: 'guide-2026.html', label: 'Guide 2026' },
-  { href: 'conditions-eligibilite-aah.html', label: 'Conditions' },
-  { href: 'montant-aah-2026.html', label: 'Montant 2026' },
-  { href: 'aah-et-travail.html', label: 'AAH et travail' },
-  { href: 'demarches-mdph-caf.html', label: 'Démarches' },
-  { href: 'faq-aah.html', label: 'FAQ' },
-  { href: 'a-propos.html', label: 'À propos' },
-  { href: 'contact.html', label: 'Contact' },
-  { href: 'mentions-legales.html', label: 'Mentions légales' },
-  { href: 'politique-confidentialite.html', label: 'Confidentialité' },
+const understandItems = [
+  { href: '/conditions-eligibilite', label: 'Conditions' },
+  { href: '/montant-2026', label: 'Montant 2026' },
+  { href: '/guide-2026', label: 'Guide 2026' },
+  { href: '/guide-2026#mini-blog', label: 'Mini-blog pratique' },
+  { href: '/aah-travail', label: 'AAH et travail' },
 ];
 
 const Header: React.FC<HeaderProps> = ({ onNav, currentView = 'simulator' }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isSimulatorActive = currentView === 'simulator';
+
   return (
     <header className="site-header">
       <div className="site-header__container">
-        <a className="brand" href="index.html" aria-label="Calcul AAH - accueil">Calcul AAH</a>
+        <a className="brand" href="/" aria-label="Calcul AAH - accueil">Calcul AAH</a>
         <div className="main-nav-scroll">
           <nav className="main-nav" aria-label="Navigation principale">
-            {navItems.map((item) => {
-              const isSimulatorButton = item.view === 'simulator' && onNav;
-              const isActive = item.view ? currentView === item.view : false;
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={isActive ? 'is-active' : undefined}
-                  aria-current={isActive ? 'page' : undefined}
-                  onClick={isSimulatorButton ? (event) => {
-                    event.preventDefault();
-                    onNav('simulator');
-                  } : undefined}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
+            <a
+              href="/"
+              className={isSimulatorActive ? 'is-active' : undefined}
+              aria-current={isSimulatorActive ? 'page' : undefined}
+              onClick={onNav ? (event) => {
+                event.preventDefault();
+                onNav('simulator');
+              } : undefined}
+            >
+              Simulateur
+            </a>
+            <div className={`nav-dropdown${isDropdownOpen ? ' is-open' : ''}`}>
+              <button
+                className="nav-dropdown__button"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded={isDropdownOpen}
+                onClick={() => setIsDropdownOpen((open) => !open)}
+              >
+                Comprendre l’AAH
+                <span className="nav-dropdown__chevron" aria-hidden="true">▾</span>
+              </button>
+              <div className="nav-dropdown__menu" role="menu">
+                {understandItems.map((item) => (
+                  <a key={item.href} href={item.href} role="menuitem">{item.label}</a>
+                ))}
+              </div>
+            </div>
+            <a href="/demarches">Démarches</a>
+            <a href="/faq">FAQ</a>
+            <a href="/contact">Contact</a>
+            <a className="nav-secondary" href="/a-propos">À propos</a>
+            <a className="nav-secondary" href="/mentions-legales">Mentions légales</a>
+            <a className="nav-secondary" href="/politique-confidentialite">Confidentialité</a>
           </nav>
         </div>
       </div>
