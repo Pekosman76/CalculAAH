@@ -10,8 +10,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
     <link rel="manifest" href="/site.webmanifest?v=3">
-    <title id="page-title">Simulateur AAH 2026 : estimation rapide + accès au guide dédié</title>
-    <meta name="description" content="Simulateur AAH 2026 gratuit : estimez votre AAH en quelques minutes et accédez au guide dédié sur les conditions, le montant, le travail et les démarches CAF/MDPH." />
+    <title id="page-title">Simulateur AAH 2026 : estimation rapide + guide complet (CAF/MSA)</title>
+    <meta name="description" content="Simulateur AAH 2026 gratuit : estimez votre AAH en quelques minutes et consultez un guide complet sur l’AAH différentielle, le cumul AAH et salaire, l’abattement et les démarches CAF/MDPH." />
     <link rel="canonical" href="https://calcul-aah.fr/" />
     <meta name="robots" content="index, follow" />
 
@@ -118,7 +118,7 @@
             <div class="max-w-3xl mx-auto px-4">
             <div class="bg-white rounded-3xl shadow-lg p-6 md:p-8">
                 <h1 class="text-2xl md:text-4xl font-black text-[#00205B] mb-4">
-                AAH 2026 : simulateur gratuit et guide dédié
+                AAH 2026 : guide simple + simulateur gratuit
                 </h1>
 
                 <p class="text-slate-700 leading-relaxed mb-4">
@@ -135,7 +135,7 @@
 
                 <h2 class="text-lg font-bold text-[#0063B1] mb-2">Accéder au simulateur</h2>
                 <p class="text-slate-700 leading-relaxed">
-                Activez JavaScript pour utiliser le simulateur interactif. Sinon, consultez le guide dédié sur <a class="text-[#0063B1] font-bold underline" href="/guide-2026">/guide-2026</a>.
+                Activez JavaScript pour utiliser le simulateur interactif. Sinon, consultez le guide “En savoir plus”.
                 </p>
 
                 <noscript>
