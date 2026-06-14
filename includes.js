@@ -28,7 +28,7 @@ function currentRoute() {
   const parts = window.location.pathname.split('/').filter(Boolean);
   if (parts[0] === 'blog') return 'blog';
   const last = parts.pop() || '';
-  if ((last === 'guide-2026' || last === 'guide-2026.html') && window.location.hash === '#articles') return 'mini-blog';
+  if ((last === 'guide-2026' || last === 'guide-2026.html') && (window.location.hash === '#articles' || window.location.hash === '#mini-blog')) return 'mini-blog';
   return routeAliases[last] || 'home';
 }
 function closeDisclosure(disclosure) {
@@ -50,12 +50,17 @@ function setupHeaderNav() {
   header.querySelectorAll('.site-header__disclosure').forEach((disclosure) => {
     const button = disclosure.querySelector('.site-header__disclosure-button');
     button?.addEventListener('click', (event) => { event.stopPropagation(); disclosure.classList.contains('is-open') ? closeDisclosure(disclosure) : openDisclosure(disclosure); });
+    button?.addEventListener('keydown', (event) => { if (['Enter',' ','ArrowDown'].includes(event.key)) { event.preventDefault(); openDisclosure(disclosure); disclosure.querySelector('.site-header__submenu-link')?.focus(); } });
+    disclosure.querySelector('.site-header__submenu')?.setAttribute('role','menu');
+    disclosure.querySelectorAll('.site-header__submenu-link').forEach((a)=>a.setAttribute('role','menuitem'));
+    disclosure.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeDisclosure(disclosure); button?.focus(); } });
   });
   header.querySelector('.site-header__mobile-toggle')?.addEventListener('click', (event) => {
     const btn = event.currentTarget; const isOpen = mobilePanel.classList.toggle('is-open'); mobilePanel.hidden = !isOpen; btn.setAttribute('aria-expanded', String(isOpen));
   });
   document.addEventListener('click', (event) => { if (!header.contains(event.target)) header.querySelectorAll('.site-header__disclosure').forEach(closeDisclosure); });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') header.querySelectorAll('.site-header__disclosure').forEach(closeDisclosure); });
+  const ro = new ResizeObserver(() => { const inner=header.querySelector('.site-header__inner'); const nav=header.querySelector('.site-header__nav-wrap'); if(inner&&nav) header.classList.toggle('site-header--overflow', nav.scrollWidth > nav.clientWidth || inner.scrollHeight > 80); }); ro.observe(header);
 }
 function markActiveNav() {
   const active = currentRoute();

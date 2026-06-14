@@ -7,12 +7,12 @@
       <nav class="site-header__primary" aria-label="Navigation principale">
         <a class="site-header__link" href="/" data-route="home">Simulateur</a>
         <div class="site-header__disclosure">
-          <button class="site-header__disclosure-button" type="button" aria-expanded="false" aria-controls="nav-comprendre-aah">Comprendre l’AAH <span aria-hidden="true">▾</span></button>
+          <button class="site-header__disclosure-button" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="nav-comprendre-aah">Comprendre l’AAH <span aria-hidden="true">▾</span></button>
           <div id="nav-comprendre-aah" class="site-header__submenu" hidden>
+            <a class="site-header__submenu-link" href="/guide-2026" data-route="guide-2026">Guide 2026</a>
+            <a class="site-header__submenu-link" href="/guide-2026#mini-blog" data-route="mini-blog">Mini-blog</a>
             <a class="site-header__submenu-link" href="/conditions" data-route="conditions">Conditions</a>
             <a class="site-header__submenu-link" href="/montant-2026" data-route="montant-2026">Montant 2026</a>
-            <a class="site-header__submenu-link" href="/guide-2026" data-route="guide-2026">Guide 2026</a>
-            <a class="site-header__submenu-link" href="/guide-2026#articles" data-route="mini-blog">Mini-blog</a>
             <a class="site-header__submenu-link" href="/aah-travail" data-route="aah-travail">AAH et travail</a>
           </div>
         </div>
@@ -26,7 +26,7 @@
         <a class="site-header__link" href="/politique-confidentialite" data-route="politique-confidentialite">Confidentialité</a>
       </nav>
     </div>
-    <button class="site-header__mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <button class="site-header__mobile-toggle" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="mobile-nav">Menu</button>
   </div>
   <div id="mobile-nav" class="site-header__mobile-panel" hidden></div>
 </header>

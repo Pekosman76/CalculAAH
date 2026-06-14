@@ -6,7 +6,7 @@ interface HeaderProps {
 }
 
 const understandItems = [
-  { href: '/conditions-eligibilite', label: 'Conditions' },
+  { href: '/conditions', label: 'Conditions' },
   { href: '/montant-2026', label: 'Montant 2026' },
   { href: '/guide-2026', label: 'Guide 2026' },
   { href: '/guide-2026#mini-blog', label: 'Mini-blog pratique' },
