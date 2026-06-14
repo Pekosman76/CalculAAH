@@ -1,39 +1,51 @@
-
 import React from 'react';
 
 interface HeaderProps {
-  onNav: (view: 'simulator' | 'info') => void;
-  currentView: 'simulator' | 'info';
+  onNav?: (view: 'simulator' | 'info') => void;
+  currentView?: 'simulator' | 'info';
 }
 
-const Header: React.FC<HeaderProps> = ({ onNav, currentView }) => {
+const navItems = [
+  { href: 'index.html', label: 'Simulateur', view: 'simulator' as const },
+  { href: 'guide-2026.html', label: 'Guide 2026' },
+  { href: 'conditions-eligibilite-aah.html', label: 'Conditions' },
+  { href: 'montant-aah-2026.html', label: 'Montant 2026' },
+  { href: 'aah-et-travail.html', label: 'AAH et travail' },
+  { href: 'demarches-mdph-caf.html', label: 'Démarches' },
+  { href: 'faq-aah.html', label: 'FAQ' },
+  { href: 'a-propos.html', label: 'À propos' },
+  { href: 'contact.html', label: 'Contact' },
+  { href: 'mentions-legales.html', label: 'Mentions légales' },
+  { href: 'politique-confidentialite.html', label: 'Confidentialité' },
+];
+
+const Header: React.FC<HeaderProps> = ({ onNav, currentView = 'simulator' }) => {
   return (
-    <header className="bg-[#00205B] text-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="bg-white p-1 rounded">
-             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#00205B"/>
-                <path d="M2 17L12 22L22 17" stroke="#00205B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 12L12 17L22 12" stroke="#00205B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-             </svg>
-          </div>
-          <h1 className="text-lg md:text-xl font-bold tracking-tight">Simulation AAH 2025</h1>
+    <header className="site-header">
+      <div className="site-header__container">
+        <a className="brand" href="index.html" aria-label="Calcul AAH - accueil">Calcul AAH</a>
+        <div className="main-nav-scroll">
+          <nav className="main-nav" aria-label="Navigation principale">
+            {navItems.map((item) => {
+              const isSimulatorButton = item.view === 'simulator' && onNav;
+              const isActive = item.view ? currentView === item.view : false;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={isActive ? 'is-active' : undefined}
+                  aria-current={isActive ? 'page' : undefined}
+                  onClick={isSimulatorButton ? (event) => {
+                    event.preventDefault();
+                    onNav('simulator');
+                  } : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </nav>
         </div>
-        <nav className="flex gap-4">
-          <button 
-            onClick={() => onNav('simulator')}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${currentView === 'simulator' ? 'bg-[#0063B1]' : 'hover:bg-blue-800'}`}
-          >
-            Simulateur
-          </button>
-          <button 
-            onClick={() => onNav('info')}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${currentView === 'info' ? 'bg-[#0063B1]' : 'hover:bg-blue-800'}`}
-          >
-            En savoir plus
-          </button>
-        </nav>
       </div>
     </header>
   );

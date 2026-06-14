@@ -11,11 +11,13 @@ async function injectPartial(targetId, filePath) {
 }
 
 function markActiveNav() {
-  const path = window.location.pathname.split('/').pop() || 'index.html';
+  const fileName = window.location.pathname.split('/').filter(Boolean).pop() || 'index.html';
+  const currentPage = fileName.endsWith('.html') ? fileName : 'index.html';
   const navLinks = document.querySelectorAll('.main-nav a');
+
   navLinks.forEach((link) => {
     const href = link.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html')) {
+    if (href === currentPage) {
       link.classList.add('is-active');
       link.setAttribute('aria-current', 'page');
     }
